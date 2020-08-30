@@ -21,11 +21,10 @@
                                             <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>{{trans('dashboard.total sales')}}</h4>
+                                            <h4>{{trans('admin/index.total sales')}}</h4>
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$9,980</h4>
-                                            <h6 class="success darken-4">31% <i class="la la-arrow-up"></i></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -46,11 +45,10 @@
                                             <h1><i class="cc ETH blue-grey lighten-1 font-large-2" title="ETH"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>{{__('dashboard.total orders')}}</h4>
+                                            <h4>{{__('admin/index.total orders')}}</h4>
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$944</h4>
-                                            <h6 class="success darken-4">12% <i class="la la-arrow-up"></i></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -71,11 +69,10 @@
                                             <h1><i class="cc XRP info font-large-2" title="XRP"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>{{__('dashboard.no of products')}}</h4>
+                                            <h4>{{__('admin/index.no of products')}}</h4>
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$1.2</h4>
-                                            <h6 class="danger">20% <i class="la la-arrow-down"></i></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +93,10 @@
                                             <h1><i class="cc XRP info font-large-2" title="XRP"></i></h1>
                                         </div>
                                         <div class="col-5 pl-2">
-                                            <h4>{{__('dashboard.no of clients')}}</h4>
+                                            <h4>{{__('admin/index.no of clients')}}</h4>
                                         </div>
                                         <div class="col-5 text-right">
                                             <h4>$1.2</h4>
-                                            <h6 class="danger">20% <i class="la la-arrow-down"></i></h6>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +116,7 @@
                     <div class="col-12 col-xl-8">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">{{__('dashboard.latest orders')}}</h4>
+                                <h4 class="card-title">{{__('admin/index.latest orders')}}</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 
                             </div>
@@ -129,11 +125,11 @@
                                     <table class="table table-de mb-0">
                                         <thead>
                                         <tr>
-                                            <th>{{__('dashboard.order no')}}</th>
-                                            <th>{{__('dashboard.order client')}}</th>
-                                            <th>{{__('dashboard.order price')}}</th>
-                                            <th>{{__('dashboard.order status')}}</th>
-                                            <th>{{__('dashboard.total orders')}}</th>
+                                            <th>{{__('admin/index.order no')}}</th>
+                                            <th>{{__('admin/index.order client')}}</th>
+                                            <th>{{__('admin/index.order price')}}</th>
+                                            <th>{{__('admin/index.order status')}}</th>
+                                            <th>{{__('admin/index.total orders')}}</th>
 
                                         </tr>
                                         </thead>
@@ -154,7 +150,7 @@
                     <div class="col-12 col-xl-4">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">{{__('dashboard.latest grades')}}</h4>
+                                <h4 class="card-title">{{__('admin/index.latest grades')}}</h4>
                                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
 
                             </div>
@@ -163,9 +159,9 @@
                                     <table class="table table-de mb-0">
                                         <thead>
                                         <tr>
-                                            <th>{{__('dashboard.order client')}}</th>
-                                            <th>{{__('dashboard.product')}}</th>
-                                            <th>{{__('dashboard.grade')}}</th>
+                                            <th>{{__('admin/index.order client')}}</th>
+                                            <th>{{__('admin/index.product')}}</th>
+                                            <th>{{__('admin/index.grade')}}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
