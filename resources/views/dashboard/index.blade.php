@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    Dashboard
+    {{__('admin/index.dashboard')}}
     @stop
 
 @section('content')

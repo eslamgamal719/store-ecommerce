@@ -22,7 +22,8 @@ return [
     'order client' => 'Client',
     'order price' => 'Price',
     'order status' => 'Status',
-    'total orders' => 'Total',
+    'dashboard' => 'Dashboard',
+
     'latest grades' => 'Latest Grades',
     'product' => 'Product',
     'grade' => 'Grade',

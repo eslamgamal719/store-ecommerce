@@ -24,4 +24,9 @@ class SettingsController extends Controller
 
             return view('dashboard.settings.shippings.edit', compact('shippingMethod'));
         }
+
+
+        public function updateShippingMethod(Request $request, $id) {
+
+        }
 }
