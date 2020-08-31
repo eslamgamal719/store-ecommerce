@@ -22,7 +22,7 @@ return [
     'order client' => 'اسم العميل',
     'order price' => 'سعر الطلب',
     'order status' => 'حاله الطلب',
-    'total orders' => 'اجمالى الطلبات',
+    'dashboard' => 'لوحة التحكم',
     'latest grades' => 'أخر التقييمات',
     'product' => 'المنتج',
     'grade' => 'التقييم',

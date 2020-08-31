@@ -33,9 +33,9 @@ class AdminLoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required'    => 'يجب ادخال البريد الالكترونى',
-            'email.email'       => 'صيغه البريد الالكترونى غير صحيحه',
-            'password.required' => 'يجب ادخال كلمه السر'
+            'email.required'    => __('admin/login.email required'),
+            'email.email'       => __('admin/login.email is email'),
+            'password.required' => __('admin/login.password required')
         ];
     }
 }
