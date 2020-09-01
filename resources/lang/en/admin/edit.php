@@ -13,7 +13,8 @@ return [
     'value required' => 'Enter Shipping Method Name',
     'plain_value required' => 'Enter Shipping Value',
     'edit error' => 'There Is An Error Please Try Again',
-    'edit shipping' => 'Edit Shippings'
+    'edit shipping' => 'Edit Shippings',
+
 
 
 
