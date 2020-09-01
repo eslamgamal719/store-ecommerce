@@ -13,8 +13,7 @@ return [
     'value required' => 'أدخل اسم وسيلة التوصيل',
     'plain_value required' => 'أدخل قيمه التوصيل',
     'edit error' => 'هناك خطأ ما يرجى اعاده المحاوله',
-    'edit shipping' => 'تعديل التوصيل'
-
+    'edit shipping' => 'تعديل التوصيل',
 
 
 
