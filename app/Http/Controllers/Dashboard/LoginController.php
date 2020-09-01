@@ -24,4 +24,19 @@ class LoginController extends Controller
             return redirect()->back()->with(['error' => __('admin/login.error')]);
         }
     }
+
+
+    public function logout()
+    {
+        $guard = $this->getGuard();
+        $guard->logout();
+
+        return redirect()->route('admin.login');
+    }
+
+
+    private function getGuard()
+    {
+        return auth('admin');
+    }
 }
