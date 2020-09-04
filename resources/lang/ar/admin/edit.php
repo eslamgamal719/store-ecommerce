@@ -14,7 +14,7 @@ return [
     'plain_value required' => 'أدخل قيمه التوصيل',
     'edit error' => 'هناك خطأ ما يرجى اعاده المحاوله',
     'edit shipping' => 'تعديل التوصيل',
-
+    'old password not match' => 'كلمه السر القديمه غير صحيحه'
 
 
 ];
