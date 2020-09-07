@@ -34,6 +34,18 @@ Route::group(
             Route::get('edit', 'ProfileController@editProfile')->name('edit.profile');
             Route::put('update', 'ProfileController@updateProfile')->name('update.profile');
         });
+
+        #################################### Categories Routes #####################################
+        Route::group(['prefix' => 'main_categories'], function () {
+            Route::get('/','MainCategoriesController@index') -> name('admin.maincategories');
+            Route::get('create','MainCategoriesController@create') -> name('admin.maincategories.create');
+            Route::post('store','MainCategoriesController@store') -> name('admin.maincategories.store');
+            Route::get('edit/{id}','MainCategoriesController@edit') -> name('admin.maincategories.edit');
+            Route::post('update/{id}','MainCategoriesController@update') -> name('admin.maincategories.update');
+            Route::get('delete/{id}','MainCategoriesController@destroy') -> name('admin.maincategories.delete');
+        });
+
+        #################################### Categories Routes #####################################
     });
 
 
