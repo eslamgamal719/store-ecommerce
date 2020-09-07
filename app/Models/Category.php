@@ -26,6 +26,10 @@ class Category extends Model
         return $query->whereNull('parent_id');
     }
 
+    public function scopeChild($query) {
+        return $query->whereNotNull('parent_id');
+    }
+
 
     public function getActive() {
         return $this->is_active == 0 ? __('admin/category.inactive') : __('admin/category.active');

@@ -48,7 +48,7 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{route('admin.maincategories.update',$category -> id)}}"
+                                              action="{{route('admin.categories.update',$category -> id)}}"
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
@@ -74,9 +74,34 @@
                                                 @enderror
                                             </div>
 
+                                          @if($category->parent_id != null)
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
+                                                        <select name="parent_id" class="select2 form-control">
+                                                            <optgroup label="{{__('admin/category.choose main category')}}">
+                                                                @if($mainCategories && $mainCategories -> count() > 0)
+                                                                    @foreach($mainCategories as $mainCategory)
+                                                                        <option
+                                                                            value="{{$mainCategory -> id }}"
+                                                                            @if($mainCategory->id == $category->parent_id) selected @endif >
+                                                                            {{$mainCategory -> name}}
+                                                                        </option>
+                                                                    @endforeach
+                                                                @endif
+                                                            </optgroup>
+                                                        </select>
+                                                        @error('parent_id')
+                                                        <span class="text-danger"> {{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           @endif
+
 
                                             <div class="form-body">
-
                                                 <h4 class="form-section"><i class="ft-home"></i> {{__('admin/category.category data')}} </h4>
                                                 <div class="row">
                                                     <div class="col-md-6">

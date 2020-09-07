@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MainCategoryRequest extends FormRequest
+class AdminLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class MainCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required',
-            'slug'  => 'required|unique:categories,slug,' . $this->id,
-            'password' => 'nullable|confirmed|min:8'
+            'email'      => "required|email",
+            'password'   => "required"
         ];
     }
 
@@ -34,9 +33,9 @@ class MainCategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
-            'slug.required'    => __('admin/category.slug required'),
-            'slug.unique'       => __('admin/category.slug unique'),
+            'email.required'    => __('admin/login.email required'),
+            'email.email'       => __('admin/login.email is email'),
+            'password.required' => __('admin/login.password required')
         ];
     }
 }
