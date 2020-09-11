@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ShippingRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class ShippingRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'             => 'required|exists:settings',
-            'value'          => 'required',
-            'plain_value'    => 'nullable|numeric',
+            'name'    => 'required',
+            'slug'  => 'required|unique:categories,slug,' . $this->id,
         ];
     }
 
@@ -34,8 +33,9 @@ class ShippingRequest extends FormRequest
     public function messages()
     {
         return [
-            'value.required'       => __('admin/edit.value required'),
-            'plain_value.numeric'  => __('admin/edit.plain_value required')
+            'name.required'     => __('admin/category.name required'),
+            'slug.required'    => __('admin/category.slug required'),
+            'slug.unique'       => __('admin/category.slug unique'),
         ];
     }
 }
