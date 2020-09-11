@@ -36,7 +36,7 @@ Route::group(
         });
 
         #################################### Categories Routes #####################################
-        Route::group(['prefix' => 'main_categories'], function () {
+        Route::group(['prefix' => 'categories'], function () {
             Route::get('/{type}','CategoriesController@index') -> name('admin.categories');
             Route::get('create/{type}','CategoriesController@create') -> name('admin.categories.create');
             Route::post('store','CategoriesController@store') -> name('admin.categories.store');

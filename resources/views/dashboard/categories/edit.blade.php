@@ -15,7 +15,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">{{__('admin/category.main')}} </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href=""> {{__('admin/category.main categories')}} </a>
+                                <li class="breadcrumb-item"><a href=""> {{__('admin/category.categories')}} </a>
                                 </li>
                                 <li class="breadcrumb-item active"> {{__('admin/category.edit')}} - {{$category -> name}}
                                 </li>
@@ -31,7 +31,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/category.edit main category')}} </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/category.edit category')}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">

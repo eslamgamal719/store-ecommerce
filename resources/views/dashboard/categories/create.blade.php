@@ -17,7 +17,7 @@
                                         href="{{route('admin.dashboard')}}">{{__('admin/category.main')}} </a>
                                 </li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{route('admin.categories', 'main')}}"> {{__('admin/category.main categories')}} </a>
+                                        href="{{route('admin.categories', 'main')}}"> {{__('admin/category.categories')}} </a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                 </li>

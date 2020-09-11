@@ -3,8 +3,8 @@
 return [
 ############### index page ####################
     'main' => 'Main',
-    'main categories' => 'Main Categories',
-    'all main categories' => 'All main categories',
+    'categories' => 'Categories',
+    'all categories' => 'All Categories',
     'name' => 'Name',
     'slug' => 'Slug Name',
     'status' => 'Status',
@@ -14,7 +14,7 @@ return [
     'delete' => 'Delete',
 
 ############### edit page ####################
-    'edit main category' => 'Edit Main Category',
+    'edit category' => 'Edit Category',
     'category data' => 'Category Data',
     'return' => 'Return',
     'update' => 'Update',

@@ -3,8 +3,8 @@
 return [
 ############### index page ####################
     'main' => 'الرئيسيه',
-    'main categories' => 'الاقسام الرئيسيه',
-    'all main categories' => 'كل الاقسام الرئيسيه',
+    'categories' => 'الاقسام',
+    'all categories' => 'كل الاقسام',
     'name' => 'الاسم',
     'slug' => 'الاسم بالرابط',
     'status' => 'الحاله',

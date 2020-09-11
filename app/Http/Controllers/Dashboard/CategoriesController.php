@@ -25,9 +25,8 @@ class CategoriesController extends Controller
         }else{
             return $this->errorMsg('main',  __('admin/category.there is error'));
         }
-
-
     }
+
 
     public function edit($id)
     {
@@ -44,14 +43,14 @@ class CategoriesController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         try {
+            $category = $this->getCategoryById($id);
+            if (!$category)
+                return $this->notFoundMsg(__('admin/category.category not found'));
+
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
             else
                 $request->request->add(['is_active' => 1]);
-
-            $category = $this->getCategoryById($id);
-            if (!$category)
-                return $this->notFoundMsg(__('admin/category.category not found'));
 
             DB::beginTransaction();
             $category->update($request->all());
