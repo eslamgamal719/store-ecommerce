@@ -5,45 +5,45 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
-use App\Traits\categories;
+use App\Traits\generalMsg;
 use Illuminate\Http\Request;
 use DB;
 
 class CategoriesController extends Controller
 {
-    use categories;
+    use generalMsg;
 
     public function index($type)
     {
-        if($type == 'main'){
+        if ($type == 'main') {
             $categories = Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
             return view('dashboard.categories.index', compact('categories'));
 
-        }elseif ($type == 'sub'){
+        } elseif ($type == 'sub') {
+            $type = 'sub';
             $categories = Category::child()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
-            return view('dashboard.categories.index', compact('categories'));
-        }else{
-            return $this->errorMsg('main',  __('admin/category.there is error'));
+            return view('dashboard.categories.index', compact('categories', 'type'));
+        } else {
+            return $this->errorMsg('main', __('admin/category.there is error'));
         }
     }
 
 
     public function edit($id)
     {
-        $category = $this->getCategoryById($id);
+        $category = $this->getElementById( $id);
         if (!$category)
             return $this->notFoundMsg(__('admin/category.category not found'));
 
         $mainCategories = Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
-        return view('dashboard.categories.edit', compact('category', 'mainCategories'));
+        return view('dashboard.generalMsg.edit', compact('category', 'mainCategories'));
     }
-
 
 
     public function update(CategoryRequest $request, $id)
     {
         try {
-            $category = $this->getCategoryById($id);
+            $category = $this->getElementById($id);
             if (!$category)
                 return $this->notFoundMsg(__('admin/category.category not found'));
 
@@ -58,51 +58,48 @@ class CategoriesController extends Controller
             $category->save();
             DB::commit();
 
-            if($category->parent_id == null)
+            if ($category->parent_id == null)
                 return $this->successMsg('main', __('admin/category.updated successfully'));
 
-                return $this->successMsg('sub', __('admin/category.updated successfully'));
+            return $this->successMsg('sub', __('admin/category.updated successfully'));
 
         } catch (\Exception $ex) {
-            return $this->errorMsg('main',  __('admin/category.there is error'));
+            return $this->errorMsg('main', __('admin/category.there is error'));
         }
     }
-
 
 
     public function destroy($id)
     {
         try {
-            $category = $this->getCategoryById($id);
+            $category = $this->getElementById($id);
             if (!$category)
                 return $this->notFoundMsg(__('admin/category.category not found'));
 
             $category->delete();
-            if($category->parent_id == null)
-            return $this->successMsg('main', __('admin/category.deleted successfully'));
+            if ($category->parent_id == null)
+                return $this->successMsg('main', __('admin/category.deleted successfully'));
 
             return $this->successMsg('sub', __('admin/category.deleted successfully'));
 
         } catch (\Exception $ex) {
-            return $this->errorMsg('main',  __('admin/category.there is error'));
+            return $this->errorMsg('main', __('admin/category.there is error'));
         }
     }
-
 
 
     public function create($type)
     {
-        if($type == 'main')
-             return view('dashboard.categories.create');
+        if ($type == 'main')
+            return view('dashboard.generalMsg.create');
 
-        elseif($type == 'sub'){
-             $mainCategories = Category::parent()->orderBy('id', 'DESC')->get();
-             return view('dashboard.categories.create', compact('mainCategories'));
-        }else{
-            return $this->errorMsg('main',  __('admin/category.there is error'));
+        elseif ($type == 'sub') {
+            $mainCategories = Category::parent()->orderBy('id', 'DESC')->get();
+            return view('dashboard.generalMsg.create', compact('mainCategories'));
+        } else {
+            return $this->errorMsg('main', __('admin/category.there is error'));
         }
     }
-
 
 
     public function store(CategoryRequest $request)
@@ -119,16 +116,15 @@ class CategoriesController extends Controller
             $category->save();
             DB::commit();
 
-           if(isset($request->parent_id) && $request->parent_id != null)
-           return $this->successMsg('sub', __('admin/category.added sub successfully'));
+            if (isset($request->parent_id) && $request->parent_id != null)
+                return $this->successMsg('sub', __('admin/category.added sub successfully'));
 
-           return $this->successMsg('main', __('admin/category.added main successfully'));
+            return $this->successMsg('main', __('admin/category.added main successfully'));
 
         } catch (\Exception $ex) {
-            return $this->errorMsg('main',  __('admin/category.there is error'));
+            return $this->errorMsg('main', __('admin/category.there is error'));
         }
     }
-
 
 
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class BrandsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'    => 'required',
-            'slug'  => 'required|unique:generalMsg,slug,' . $this->id,
+            'name'  => 'required',
+            'photo' => 'required_without:id|mimes:jpg,jpeg,png'
         ];
     }
 
@@ -33,9 +33,9 @@ class CategoryRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
-            'slug.required'    => __('admin/category.slug required'),
-            'slug.unique'       => __('admin/category.slug unique'),
+            'name.required'  => __('admin/brands.name required'),
+            'photo.required' => __('admin/brands.photo required'),
+            'photo.mimes'    => __('admin/brands.photo not valid')
         ];
     }
 }
