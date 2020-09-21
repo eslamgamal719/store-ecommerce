@@ -5,38 +5,30 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
-use App\Traits\generalMsg;
+use App\Traits\categories;
 use Illuminate\Http\Request;
 use DB;
 
 class CategoriesController extends Controller
 {
-    use generalMsg;
+    use categories;
 
-    public function index($type)
+    public function index()
     {
-        if ($type == 'main') {
-            $categories = Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
-            return view('dashboard.categories.index', compact('categories'));
-
-        } elseif ($type == 'sub') {
-            $type = 'sub';
-            $categories = Category::child()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
-            return view('dashboard.categories.index', compact('categories', 'type'));
-        } else {
-            return $this->errorMsg('main', __('admin/category.there is error'));
-        }
+        $categories = Category::with('_parent')->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        return view('dashboard.categories.index', compact('categories'));
     }
+
 
 
     public function edit($id)
     {
-        $category = $this->getElementById( $id);
+        $category = $this->getElementById($id);
         if (!$category)
-            return $this->notFoundMsg(__('admin/category.category not found'));
+            return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
 
-        $mainCategories = Category::parent()->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
-        return view('dashboard.generalMsg.edit', compact('category', 'mainCategories'));
+        $allCategories = Category::select('id', 'parent_id');
+        return view('dashboard.categories.edit', compact('category', 'allCategories'));
     }
 
 
@@ -45,7 +37,7 @@ class CategoriesController extends Controller
         try {
             $category = $this->getElementById($id);
             if (!$category)
-                return $this->notFoundMsg(__('admin/category.category not found'));
+                return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
 
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
@@ -69,37 +61,15 @@ class CategoriesController extends Controller
     }
 
 
-    public function destroy($id)
+
+
+
+    public function create()
     {
-        try {
-            $category = $this->getElementById($id);
-            if (!$category)
-                return $this->notFoundMsg(__('admin/category.category not found'));
-
-            $category->delete();
-            if ($category->parent_id == null)
-                return $this->successMsg('main', __('admin/category.deleted successfully'));
-
-            return $this->successMsg('sub', __('admin/category.deleted successfully'));
-
-        } catch (\Exception $ex) {
-            return $this->errorMsg('main', __('admin/category.there is error'));
-        }
+        $allCategories = Category::select('id', 'parent_id')->get();
+        return view('dashboard.categories.create', compact('allCategories'));
     }
 
-
-    public function create($type)
-    {
-        if ($type == 'main')
-            return view('dashboard.generalMsg.create');
-
-        elseif ($type == 'sub') {
-            $mainCategories = Category::parent()->orderBy('id', 'DESC')->get();
-            return view('dashboard.generalMsg.create', compact('mainCategories'));
-        } else {
-            return $this->errorMsg('main', __('admin/category.there is error'));
-        }
-    }
 
 
     public function store(CategoryRequest $request)
@@ -110,19 +80,45 @@ class CategoriesController extends Controller
             else
                 $request->request->add(['is_active' => 1]);
 
+            if ($request->type == 1) {
+                $request->request->add(['parent_id' => null]);
+            }
+
+            $fileName = uploadImage('categories', $request->photo);
+
             DB::beginTransaction();
             $category = Category::create($request->except('_token')); //can use all
             $category->name = $request->name;
+            $category->photo = $fileName;
             $category->save();
             DB::commit();
 
-            if (isset($request->parent_id) && $request->parent_id != null)
-                return $this->successMsg('sub', __('admin/category.added sub successfully'));
-
-            return $this->successMsg('main', __('admin/category.added main successfully'));
+            return $this->success('admin.categories', __('admin/category.added successfully'));
 
         } catch (\Exception $ex) {
-            return $this->errorMsg('main', __('admin/category.there is error'));
+            return $this->error('admin.categories', __('admin/category.there is error'));
+        }
+    }
+
+
+
+
+
+
+    public function destroy($id)
+    {
+        try {
+            $category = $this->getElementById($id);
+            if (!$category)
+                return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
+
+            $category->translations()->delete();
+            $category->delete();
+
+            return $this->success('admin.categories', __('admin/category.deleted successfully'));
+
+        } catch (\Exception $ex) {
+            return $this->error('admin.categories', __('admin/category.there is error'));
         }
     }
 

@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\BrandsRequest;
 use App\Models\Brand;
-use App\Traits\generalMsg;
+use App\Traits\categories;
 use Illuminate\Http\Request;
 use DB;
 
 class BrandsController extends Controller
 {
-    use generalMsg;
+    use categories;
 
     public function index()
     {

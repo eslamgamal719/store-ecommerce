@@ -9,11 +9,13 @@ class Category extends Model
 {
     use translatable;
 
+    protected $table = 'categories';
+
     protected $with = ['translations'];
 
     protected $translatedAttributes =['name'];
 
-    protected $fillable = ['parent_id', 'slug', 'is_active'];
+    protected $fillable = ['parent_id', 'slug', 'is_active', 'photo'];
 
     protected $hidden = ['translations'];
 
@@ -38,5 +40,14 @@ class Category extends Model
 
     public function _parent() {
         return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    public function _child() {
+        return $this->hasMany(self::class, 'parent_id');
+    }
+
+
+    public function getPhotoAttribute($val) {
+          return ($val != null) ? asset('assets/images/categories/' . $val) : '';
     }
 }

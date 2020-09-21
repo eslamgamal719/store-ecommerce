@@ -25,7 +25,9 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name'    => 'required',
-            'slug'  => 'required|unique:generalMsg,slug,' . $this->id,
+            'slug'  => 'required|unique:categories,slug,' . $this->id,
+            'photo' => 'required_without:id|mimes:jpg,png,jpeg',
+            'type'  => 'required|in:1,2'
         ];
     }
 
@@ -36,6 +38,9 @@ class CategoryRequest extends FormRequest
             'name.required'     => __('admin/category.name required'),
             'slug.required'    => __('admin/category.slug required'),
             'slug.unique'       => __('admin/category.slug unique'),
+            'photo.required'   => __('admin/category.photo required'),
+            'photo.mimes'   => __('admin/category.photo invalid'),
+            'type.required'   => __('admin/category.type required'),
         ];
     }
 }

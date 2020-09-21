@@ -26,15 +26,20 @@ return [
     'there is error' => 'There is an error please try again later',
     'updated successfully' => 'Updated successfully',
     'deleted successfully' => 'Deleted Successfully',
+    'added successfully'  => 'Added  Successfully',
     'active' => 'Active',
     'inactive' => 'Inactive',
     'name required' => 'Category name is required',
     'slug required' => 'Slug name is required',
     'slug unique' => 'This slug name is already exists',
-    'added sub successfully'  => 'Added sub-category successfully',
-    'added main successfully' => 'Added main-category successfully',
+
+
     'add new category' => 'Add New Category',
     'choose main category' => 'Choose Main Category',
+    'main category' => 'Main Category',
+    'sub category' => 'Sub Category',
+    '' => '',
+
 
 
 

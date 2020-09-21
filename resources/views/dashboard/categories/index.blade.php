@@ -10,7 +10,7 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">{{__('generalMsg')}}</h3>
+                    <h3 class="content-header-title">{{__('categories')}}</h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
@@ -54,8 +54,7 @@
 
                                             <tr>
                                                 <th>{{__('admin/category.name')}} </th>
-                                                @isset($type)
-                                                    <th>{{__('admin/category.main name')}} </th> @endisset
+                                                <th>{{__('admin/category.main category')}}</th>
                                                 <th>{{__('admin/category.slug')}}</th>
                                                 <th>{{__('admin/category.status')}}</th>
                                                 <th>{{__('admin/category.image')}}</th>
@@ -70,13 +69,11 @@
                                                 @foreach($categories as $category)
                                                     <tr>
                                                         <td>{{$category -> name}}</td>
-
-                                                        @if($category->parent_id != null)
-                                                          <td>{{$category -> _parent -> name}}</td> @endif
+                                                        <td>{{$category ->_parent->name ?? '--'}}</td>
 
                                                         <td>{{$category -> slug}}</td>
                                                         <td>{{$category -> getActive()}}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src=""></td>
+                                                        <td> <img style="width: 150px; height: 100px;" src="{{$category->photo}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
