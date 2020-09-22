@@ -114,7 +114,7 @@
                                                 </div>
 
 
-                                                  <div class="row hidden" id="cats-list">
+                                        {{--          <div class="row hidden" id="cats-list">
                                                       <div class="col-md-12">
                                                           <div class="form-group">
                                                               <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
@@ -139,7 +139,31 @@
                                                               @enderror
                                                           </div>
                                                       </div>
-                                                  </div>
+                                                  </div>  --}}
+
+                          <div class="row hidden" id="cats-list">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
+                                      <select name="parent_id" style="width:auto;" class="form-control">
+                                          <optgroup label="{{__('admin/category.choose main category')}}">
+                                                @if($categories && $categories->count() > 0)
+                                                    @php
+                                                        if(App::getLocale() == 'ar')
+                                                            subCatRecursion($categories , 0 ,"←");
+                                                        else
+                                                            subCatRecursion($categories, 0,'→');
+
+                                                    @endphp
+                                              @endif
+                                          </optgroup>
+                                      </select>
+                                      @error('parent_id')
+                                      <span class="text-danger"> {{$message}}</span>
+                                      @enderror
+                                  </div>
+                              </div>
+                          </div>
 
 
                                             </div>

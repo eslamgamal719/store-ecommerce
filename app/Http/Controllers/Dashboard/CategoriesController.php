@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Traits\categories;
 use Illuminate\Http\Request;
 use DB;
+use Storage;
 
 class CategoriesController extends Controller
 {
@@ -18,7 +19,6 @@ class CategoriesController extends Controller
         $categories = Category::with('_parent')->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
         return view('dashboard.categories.index', compact('categories'));
     }
-
 
 
     public function edit($id)
@@ -61,15 +61,11 @@ class CategoriesController extends Controller
     }
 
 
-
-
-
     public function create()
     {
-        $allCategories = Category::select('id', 'parent_id')->get();
-        return view('dashboard.categories.create', compact('allCategories'));
+        $categories = Category::parent()->select('id', 'parent_id')->get();
+        return view('dashboard.categories.create', compact('categories'));
     }
-
 
 
     public function store(CategoryRequest $request)
@@ -101,10 +97,6 @@ class CategoriesController extends Controller
     }
 
 
-
-
-
-
     public function destroy($id)
     {
         try {
@@ -112,7 +104,14 @@ class CategoriesController extends Controller
             if (!$category)
                 return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
 
+            Storage::disk('categories')->delete($category->photo);
             $category->translations()->delete();
+
+            if (isset($category->_child))
+                foreach ($category->_child as $subCat) {
+                    $subCat->delete();
+                }
+
             $category->delete();
 
             return $this->success('admin.categories', __('admin/category.deleted successfully'));
@@ -120,6 +119,7 @@ class CategoriesController extends Controller
         } catch (\Exception $ex) {
             return $this->error('admin.categories', __('admin/category.there is error'));
         }
+
     }
 
 
