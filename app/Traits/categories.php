@@ -8,28 +8,26 @@ use App\Models\Category;
 trait categories
 {
 
-    public function successMsg($type, $message)
-    {
-        return redirect()->route('admin.categories', $type)->with(['success' => $message]);
+    public function success($route, $message) {
+        return redirect()->route($route)->with(['success'=> $message]);
     }
 
 
-    public function errorMsg($type, $message)
-    {
-        return redirect()->route('admin.categories', $type)->with(['error' => $message]);
+    public function error($route, $message) {
+        return redirect()->route($route)->with(['error'=> $message]);
     }
 
 
-    public function notFoundMsg($message)
+    public function notFoundMsg($route ,$message)
     {
-        return redirect()->back()->with(['error' => $message]);
+        return redirect()->route($route)->with(['error' => $message]);
     }
 
 
-
-    public function getCategoryById($id)
+  public function getElementById($id)
     {
-        return Category::orderBy('id', 'DESC')->find($id);
+        return Category::find($id);
     }
+
 
 }

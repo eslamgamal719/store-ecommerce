@@ -10,13 +10,13 @@
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
-                    <h3 class="content-header-title">{{__('categories')}}</h3>
+                    <h3 class="content-header-title">{{__('admin/brands.brands')}}</h3>
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('admin/category.main')}}</a>
+                                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">{{__('admin/brands.main')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active"> {{__('admin/category.categories')}}
+                                <li class="breadcrumb-item active"> {{__('admin/brands.brands')}}
                                 </li>
                             </ol>
                         </div>
@@ -30,7 +30,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{__('admin/category.all categories')}}</h4>
+                                    <h4 class="card-title">{{__('admin/brands.all brands')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -53,36 +53,31 @@
                                             <thead class="">
 
                                             <tr>
-                                                <th>{{__('admin/category.name')}} </th>
-                                                <th>{{__('admin/category.main category')}}</th>
-                                                <th>{{__('admin/category.slug')}}</th>
-                                                <th>{{__('admin/category.status')}}</th>
-                                                <th>{{__('admin/category.image')}}</th>
-                                                <th>{{__('admin/category.operations')}}</th>
+                                                <th>{{__('admin/brands.name')}} </th>
+                                                <th>{{__('admin/brands.status')}}</th>
+                                                <th>{{__('admin/brands.image')}}</th>
+                                                <th>{{__('admin/brands.operations')}}</th>
                                             </tr>
 
 
                                             </thead>
                                             <tbody>
 
-                                            @isset($categories)
-                                                @foreach($categories as $category)
+                                            @isset($brands)
+                                                @foreach($brands as $brand)
                                                     <tr>
-                                                        <td>{{$category -> name}}</td>
-                                                        <td>{{$category ->_parent->name ?? '--'}}</td>
-
-                                                        <td>{{$category -> slug}}</td>
-                                                        <td>{{$category -> getActive()}}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src="{{$category->photo}}"></td>
+                                                        <td>{{$brand -> name}}</td>
+                                                        <td>{{$brand -> getActive()}}</td>
+                                                        <td> <img style="width: 150px; height: 100px;" src="{{$brand->photo}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
-                                                                <a href="{{route('admin.categories.edit',$category -> id)}}"
-                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/category.edit')}}</a>
+                                                                <a href="{{route('admin.brands.edit',$brand -> id)}}"
+                                                                   class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.edit')}}</a>
 
 
-                                                                <a href="{{route('admin.categories.delete',$category -> id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/category.delete')}}</a>
+                                                                <a href="{{route('admin.brands.delete',$brand -> id)}}"
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.delete')}}</a>
 
                                                             </div>
                                                         </td>
@@ -94,7 +89,7 @@
                                             </tbody>
                                         </table>
                                         <div class="justify-content-center d-flex">
-                                            {!! $categories->links() !!}
+                                            {!! $brands->links() !!}
                                         </div>
                                     </div>
                                 </div>

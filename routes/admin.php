@@ -37,8 +37,8 @@ Route::group(
 
         #################################### Categories Routes #####################################
         Route::group(['prefix' => 'categories'], function () {
-            Route::get('/{type}','CategoriesController@index') -> name('admin.categories');
-            Route::get('create/{type}','CategoriesController@create') -> name('admin.categories.create');
+            Route::get('/','CategoriesController@index') -> name('admin.categories');
+            Route::get('create','CategoriesController@create') -> name('admin.categories.create');
             Route::post('store','CategoriesController@store') -> name('admin.categories.store');
             Route::get('edit/{id}','CategoriesController@edit') -> name('admin.categories.edit');
             Route::post('update/{id}','CategoriesController@update') -> name('admin.categories.update');
@@ -46,6 +46,17 @@ Route::group(
         });
 
         #################################### Categories Routes #####################################
+
+        #################################### brands Routes #########################################
+        Route::group(['prefix' => 'brands'], function () {
+            Route::get('/','BrandsController@index') -> name('admin.brands');
+            Route::get('create','BrandsController@create') -> name('admin.brands.create');
+            Route::post('store','BrandsController@store') -> name('admin.brands.store');
+            Route::get('edit/{id}','BrandsController@edit') -> name('admin.brands.edit');
+            Route::post('update/{id}','BrandsController@update') -> name('admin.brands.update');
+            Route::get('delete/{id}','BrandsController@destroy') -> name('admin.brands.delete');
+        });
+        #################################### brands Routes #########################################
     });
 
 

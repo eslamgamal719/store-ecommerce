@@ -6,6 +6,7 @@ return [
     'categories' => 'الاقسام',
     'all categories' => 'كل الاقسام',
     'name' => 'الاسم',
+    'main name' => 'اسم القسم الرئيسى',
     'slug' => 'الاسم بالرابط',
     'status' => 'الحاله',
     'image' => 'الصوره',
