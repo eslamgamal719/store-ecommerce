@@ -58,7 +58,7 @@
                                             <div class="form-group">
                                                 <div class="text-center">
                                                     <img
-                                                        src="{{$category-> photo}}"
+                                                        src="{{$category-> photo_url}}"
                                                         class="rounded-circle  height-150" alt="صورة القسم  ">
                                                 </div>
                                             </div>
@@ -118,19 +118,16 @@
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
-                                                                <select name="parent_id" class="select2 form-control">
+                                                                <select name="parent_id" style="width:auto;" class="form-control">
                                                                     <optgroup label="{{__('admin/category.choose main category')}}">
-                                                                        @if( $allCategories && $allCategories -> count() > 0)
-                                                                            @foreach($allCategories as $category)
-                                                                                @if($category->parent_id == null)
-                                                                                    <option value="{{$category -> id }}">{{$category -> name}}</option>
-                                                                                    @isset($category->_child)
-                                                                                        @foreach($category->_child as $subCat)
-                                                                                            <option value="{{$subCat -> id }}">--{{$subCat -> name}}</option>
-                                                                                        @endforeach
-                                                                                    @endisset
-                                                                                @endif
-                                                                            @endforeach
+                                                                        @if($allCategories && $allCategories->count() > 0)
+                                                                            @php
+                                                                                if(App::getLocale() == 'ar')
+                                                                                    subCatRecursion($allCategories , 0 ,"←");
+                                                                                else
+                                                                                    subCatRecursion($allCategories, 0,'→');
+
+                                                                            @endphp
                                                                         @endif
                                                                     </optgroup>
                                                                 </select>

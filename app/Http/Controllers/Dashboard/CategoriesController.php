@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Enumerations\CategoryType;
 use App\Http\Requests\Dashboard\CategoryRequest;
 use App\Models\Category;
 use App\Traits\categories;
@@ -21,13 +22,14 @@ class CategoriesController extends Controller
     }
 
 
+
     public function edit($id)
     {
         $category = $this->getElementById($id);
         if (!$category)
             return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
 
-        $allCategories = Category::select('id', 'parent_id');
+        $allCategories = Category::parent()->select('id', 'parent_id')->get();
         return view('dashboard.categories.edit', compact('category', 'allCategories'));
     }
 
@@ -44,19 +46,19 @@ class CategoriesController extends Controller
             else
                 $request->request->add(['is_active' => 1]);
 
+            Storage::disk('categories')->delete($category->photo);
+            $fileName = uploadImage('categories', $request->photo);
+
             DB::beginTransaction();
             $category->update($request->all());
             $category->name = $request->name;
+            $category->photo = $fileName;
             $category->save();
             DB::commit();
 
-            if ($category->parent_id == null)
-                return $this->successMsg('main', __('admin/category.updated successfully'));
-
-            return $this->successMsg('sub', __('admin/category.updated successfully'));
-
+            return $this->success('admin.categories', __('admin/category.updated successfully'));
         } catch (\Exception $ex) {
-            return $this->errorMsg('main', __('admin/category.there is error'));
+            return $this->error('admin.categories', __('admin/category.there is error'));
         }
     }
 
@@ -76,14 +78,14 @@ class CategoriesController extends Controller
             else
                 $request->request->add(['is_active' => 1]);
 
-            if ($request->type == 1) {
+            if ($request->type == CategoryType::MainCategory) {
                 $request->request->add(['parent_id' => null]);
             }
 
             $fileName = uploadImage('categories', $request->photo);
 
             DB::beginTransaction();
-            $category = Category::create($request->except('_token')); //can use all
+            $category = Category::create($request->except('_token', 'photo')); //can use all
             $category->name = $request->name;
             $category->photo = $fileName;
             $category->save();

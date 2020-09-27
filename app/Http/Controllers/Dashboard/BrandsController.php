@@ -8,6 +8,7 @@ use App\Models\Brand;
 use App\Traits\categories;
 use Illuminate\Http\Request;
 use DB;
+use Storage;
 
 class BrandsController extends Controller
 {
@@ -75,7 +76,8 @@ class BrandsController extends Controller
                 $request->request->add(['is_active' => 1]);
 
             DB::beginTransaction();
-            if ($request->has('photo')) {
+            if($request->has('photo')){
+                Storage::disk('brands')->delete($brand->photo);
                 $fileName = uploadImage('brands', $request->photo);
                 $brand->photo = $fileName;
             }
@@ -87,7 +89,7 @@ class BrandsController extends Controller
 
             return $this->success('admin.brands', __('admin/brands.updated successfully'));
         } catch (\Exception $ex) {
-            return $this->error('admin.brands', __('admin/brands.add fail'));
+            return $this->error('admin.brands', __('admin/brands.fail'));
         }
     }
 
@@ -99,7 +101,10 @@ class BrandsController extends Controller
             if (!$brand)
                 $this->notFoundMsg('admin.brands', __('admin/brands.brand not found'));
 
+            $brand->translations()->delete();
+            Storage::disk('brands')->delete($brand->photo);
             $brand->delete();
+
             return $this->success('admin.brands', __('admin/brands.deleted successfully'));
 
         } catch (\Exception $ex) {

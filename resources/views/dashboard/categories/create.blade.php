@@ -69,12 +69,9 @@
 
 
                                             <div class="form-body">
-
                                                 <h4 class="form-section"><i
                                                         class="ft-home"></i> {{__('admin/category.category data')}}
                                                 </h4>
-
-
 
 
                                               <div class="row">
@@ -94,7 +91,6 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">

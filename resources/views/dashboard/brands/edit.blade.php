@@ -58,7 +58,7 @@
                                             <div class="form-group">
                                                 <div class="text-center">
                                                     <img
-                                                        src="{{$brand -> photo}}"
+                                                        src="{{$brand -> photo_url}}"
                                                         class="rounded-circle  height-150" alt="صورة القسم  ">
                                                 </div>
                                             </div>

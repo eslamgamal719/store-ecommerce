@@ -55,8 +55,6 @@
                                             @csrf
 
 
-
-
                                             <div class="form-body">
                                                 <h4 class="form-section"><i class="ft-home"></i> {{__('admin/tags.tag data')}} </h4>
 

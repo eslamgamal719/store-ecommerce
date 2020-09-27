@@ -24,7 +24,12 @@ class Brand extends Model
         return $this->is_active == 0 ? __('admin/brands.inactive') : __('admin/brands.active');
     }
 
-    public function getPhotoAttribute($val) {
-        return ($val !== null) ? asset('assets/images/brands/' . $val) : '';
+
+    public function getPhotoUrlAttribute() {
+        return  asset('assets/images/brands/'. $this->photo);
     }
+
+  /*  public function getPhotoAttribute($val) {
+        return ($val !== null) ? asset('assets/images/brands/' . $val) : '';
+    }*/
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dashboard;
 
+use App\Http\Enumerations\CategoryType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -27,7 +28,7 @@ class CategoryRequest extends FormRequest
             'name'    => 'required',
             'slug'  => 'required|unique:categories,slug,' . $this->id,
             'photo' => 'required_without:id|mimes:jpg,png,jpeg',
-            'type'  => 'required|in:1,2'
+            'type'  => 'required|in:'. CategoryType::MainCategory . "," . CategoryType::SubCategory,
         ];
     }
 
