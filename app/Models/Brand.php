@@ -24,6 +24,10 @@ class Brand extends Model
         return $this->is_active == 0 ? __('admin/brands.inactive') : __('admin/brands.active');
     }
 
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
+    }
+
 
     public function getPhotoUrlAttribute() {
         return  asset('assets/images/brands/'. $this->photo);
