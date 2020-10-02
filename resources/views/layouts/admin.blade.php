@@ -55,6 +55,8 @@
     @notify_css
     @yield('style')
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+
+    <script src="{{asset('assets/admin/vendors/js/editors/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -176,6 +178,11 @@
     $('#meridians14').timeDropper({
         meridians: true,setCurrentTime: false
     });
+
+
+
+    CKEDITOR.config.language =  "{{ app()->getLocale() }}";
+
 </script>
 @yield('script')
 </body>

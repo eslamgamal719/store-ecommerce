@@ -89,22 +89,23 @@
 
                                                 <div class="row">
 
-                                                    <div class="col-md-6">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> وصف المنتج
                                                             </label>
-                                                            <textarea  name="description" id="description"
-                                                                       class="form-control"
-                                                                       placeholder="  "
-                                                            >{{old('description')}}</textarea>
+                                                            <textarea name="description" id="description" cols="20" rows="10"
+                                                                      class="ckeditor" placeholder="dasdasd" >
 
                                                             @error("description")
                                                             <span class="text-danger">{{$message}}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <div class="col-md-6">
+
+                                                 <div class="row">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> الوصف المختصر
                                                             </label>
@@ -118,7 +119,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                 </div>
 
 
@@ -143,6 +143,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> اختر ألعلامات الدلالية
@@ -162,6 +163,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="projectinput1"> اختر ألماركة
@@ -181,6 +183,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
                                                 </div>
 
                                                 <div class="row">
@@ -199,10 +202,8 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
-
                                                 </div>
-                                            </div>
+
 
 
                                             <div class="form-actions">
@@ -213,6 +214,7 @@
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="la la-check-square-o"></i> تحديث
                                                 </button>
+                                            </div>
                                             </div>
                                         </form>
 
