@@ -43,11 +43,12 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
+
                                         <form class="form"
                                               action="{{route('admin.products.general.store')}}"
                                               method="POST"
                                               enctype="multipart/form-data">
-                                            @csrf
+                                             @csrf
 
 
 
@@ -94,7 +95,7 @@
                                                             <label for="projectinput1"> وصف المنتج
                                                             </label>
                                                             <textarea name="description" id="description" cols="20" rows="10"
-                                                                      class="ckeditor" placeholder="dasdasd" >
+                                                                      class="ckeditor" placeholder="" ></textarea>
 
                                                             @error("description")
                                                             <span class="text-danger">{{$message}}</span>

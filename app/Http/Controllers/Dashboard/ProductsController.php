@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\GeneralProductRequest;
+use App\Http\Requests\Dashboard\ProductPriceRequest;
+use App\Http\Requests\Dashboard\ProductStockRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -34,7 +36,7 @@ class ProductsController extends Controller
 
     public function store(GeneralProductRequest $request)
     {
-        try{
+        try {
             DB::beginTransaction();
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
@@ -56,14 +58,50 @@ class ProductsController extends Controller
             DB::commit();
 
             return $this->success('admin.products', 'تم الاضافه بنجاح');
-        } catch(\Exception $ex) {
+        } catch (\Exception $ex) {
             DB::rollback();
             return $this->error('admin.products', 'هناك خطأ ما');
 
         }
+    }
 
 
+    public function getPrice($product_id)
+    {
+        return view('dashboard.products.price.create')->with('id', $product_id);
+    }
 
+
+    public function saveProductPrice(ProductPriceRequest $request)
+    {
+        try {
+           // ->update($request->only(['price', 'special_price', 'special_price_start', 'special_price_end', 'spectail_price_type']));
+            Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
+
+            return $this->success('admin.products', __('admin/product.updated successfully'));
+        } catch (\Exception $ex) {
+            return $this->error('admin.products', __('admin/product.there is error'));
+        }
+    }
+
+
+    public function getStock($product_id) {
+        return view('dashboard.products.stock.create')->with('id', $product_id);
+    }
+
+
+    public function saveProductStock (ProductStockRequest $request) {
+
+        try{
+            Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
+
+            return $this->success('admin.products',  __('admin/product.updated successfully'));
+        } catch (\Exception $ex) {
+            return $this->error('admin.products',  __('admin/product.there is error'));
+        }
 
     }
+
+
+
 }
