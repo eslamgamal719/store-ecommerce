@@ -40,12 +40,10 @@ class ProductStockRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
-            'slug.required'    => __('admin/category.slug required'),
-            'slug.unique'       => __('admin/category.slug unique'),
-            'photo.required'   => __('admin/category.photo required'),
-            'photo.mimes'   => __('admin/category.photo invalid'),
-            'type.required'   => __('admin/category.type required'),
+            'sku.min:3'     => __('admin/category.min sku 3'),
+            'sku.max:10'     => __('admin/category.max sku 10'),
+            'manage_stock.required'    => __('admin/category.Manage Stock is required'),
+            'in_stock.required'       => __('admin/category.In Stock is required'),
         ];
     }
 }

@@ -38,12 +38,10 @@ class ProductPriceRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
-            'slug.required'    => __('admin/category.slug required'),
-            'slug.unique'       => __('admin/category.slug unique'),
-            'photo.required'   => __('admin/category.photo required'),
-            'photo.mimes'   => __('admin/category.photo invalid'),
-            'type.required'   => __('admin/category.type required'),
+            'price.required'     => __('admin/category.price required'),
+            'special_price_type.required'   => __('admin/category.special price type required'),
+            'special_price_start.required'   => __('admin/category.special price start required'),
+            'special_price_end.required'   => __('admin/category.special price end required'),
         ];
     }
 }

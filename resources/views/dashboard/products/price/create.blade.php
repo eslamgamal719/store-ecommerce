@@ -7,15 +7,8 @@
                 <div class="content-header-left col-md-6 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
-                                </li>
-                                <li class="breadcrumb-item"><a href="">
-                                        المنتجات </a>
-                                </li>
-                                <li class="breadcrumb-item active"> أضافه منتج
-                                </li>
-                            </ol>
+
+
                         </div>
                     </div>
                 </div>
@@ -27,7 +20,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافة منتج جديد </h4>
+                                    <h4 class="card-title" id="basic-layout-form">{{__('admin/product.add product price')}}    </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -53,12 +46,12 @@
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> البيانات الاساسية للمنتج   </h4>
+                                                <h4 class="form-section"><i class="ft-home"></i>    {{__('admin/product.add product price')}}  </h4>
                                                 <div class="row">
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> سعر المنتج
+                                                            <label for="projectinput1">  {{__('admin/product.price')}}
                                                             </label>
                                                             <input type="number" id="price"
                                                                    class="form-control"
@@ -73,7 +66,7 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> سعر خاص
+                                                            <label for="projectinput1">  {{__('admin/product.special price')}}
                                                             </label>
                                                             <input type="number"
                                                                    class="form-control"
@@ -92,7 +85,7 @@
 
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">نوع السعر
+                                                            <label for="projectinput1"> {{__('admin/product.price type')}}
                                                             </label>
                                                             <select name="special_price_type" class="select2 form-control" multiple>
                                                                 <optgroup label="من فضلك اختر النوع">
@@ -116,7 +109,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <label for="switcheryColor4"
-                                                                   class="card-title ml-1">تاريخ البدايه </label>
+                                                                   class="card-title ml-1"> {{__('admin/product.start date')}} </label>
 
                                                             <input type="date"
                                                                    name="special_price_start"
@@ -133,7 +126,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">
                                                             <label for="switcheryColor4"
-                                                                   class="card-title ml-1">تاريخ النهايه </label>
+                                                                   class="card-title ml-1"> {{__('admin/product.end date')}} </label>
 
                                                             <input type="date"
                                                                    name="special_price_end"
@@ -153,10 +146,10 @@
                                             <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i> {{__('admin/product.return')}}
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> {{__('admin/product.next')}}
                                                 </button>
                                             </div>
                                             </div>

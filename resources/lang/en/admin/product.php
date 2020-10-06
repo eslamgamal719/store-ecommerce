@@ -1,15 +1,11 @@
 <?php
 
 return [
-############### index page ####################
+
     'main' => 'Main',
-    'categories' => 'Categories',
-    'all categories' => 'All Categories',
     'name' => 'Name',
-    'main name' => 'Main Category Name',
     'slug' => 'Slug Name',
     'status' => 'Status',
-    'image' => 'Photo',
     'operations' => 'Operations',
     'edit' => 'Edit',
     'delete' => 'Delete',
@@ -17,15 +13,13 @@ return [
     'products' => 'Products',
     'all products' => 'All Products',
 
-############### edit page ####################
-    'edit category' => 'Edit Category',
+
     'category data' => 'Category Data',
     'return' => 'Return',
     'update' => 'Update',
     'create' => 'Create',
-############### edit page ####################
 
-    'category not found' => 'Category is not found',
+
     'there is error' => 'There is an error please try again later',
     'updated successfully' => 'Updated successfully',
     'deleted successfully' => 'Deleted Successfully',
@@ -37,11 +31,48 @@ return [
     'slug unique' => 'This slug name is already exists',
 
 
-    'add new category' => 'Add New Category',
-    'choose main category' => 'Choose Main Category',
-    'main category' => 'Main Category',
-    'sub category' => 'Sub Category',
-    '' => '',
+    'add new product' => 'Add New Product',
+    'main data' => 'Main Data',
+    'description' => 'Description',
+    'short description' => 'Short Description',
+    'choose categories' => 'Choose Categories',
+    'choose tags' => 'Choose Tags',
+    'choose brand' => 'Choose Brand',
+    'back' => 'Back',
+    'next' => 'Next',
+
+    'add product price' => 'Add Product Price',
+    'special price' => 'Special Price',
+    'price type' => 'Price Type',
+    'start date' => 'Start Date',
+    'end date' => 'End Date',
+
+
+    'storage administration' => 'Storage Administration',
+    'storage' => 'Storage',
+    'product code' => 'Product Code',
+    'track storage' => 'Track Storage',
+    'track' => 'Track',
+    'not track' => 'Not Track',
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
+    'quantity' => 'Quantity',
+
+
+    'description unique' => 'Description is required',
+    'categories required' => 'You must choose category',
+    'brand required' => 'You must choose brand',
+
+    'price required' => 'Product Price is required',
+    'special price type required' => 'Special price type required with special price',
+    'special price start required' => 'Special price start required with special price',
+    'special price end required' => 'Special price end required with special price',
+
+    '.min sku 3' => 'Minimum Sku is 3',
+    'max sku 10' => 'Maximum Sku is 10',
+    'Manage Stock is required' => 'Manage Stock is required',
+    'In Stock is required' => 'In Stock Is required',
+
 
 
 

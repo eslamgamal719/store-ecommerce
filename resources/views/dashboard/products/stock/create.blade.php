@@ -8,13 +8,12 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
+                                <li class="breadcrumb-item"><a href="">{{__('admin/product.main')}} </a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="">
-                                        المستودع </a>
+                                         {{__('admin/product.storage')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">  اداره المستودع
-                                </li>
+
                             </ol>
                         </div>
                     </div>
@@ -27,7 +26,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> أضافة منتج جديد </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/product.storage administration')}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -53,12 +52,12 @@
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> اداره المستودع   </h4>
+                                                <h4 class="form-section"><i class="ft-home"></i>{{__('admin/product.storage administration')}}</h4>
                                                 <div class="row">
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> كود المنتج
+                                                            <label for="projectinput1"> {{__('admin/product.product code')}}
                                                             </label>
                                                             <input type="text" id="sku"
                                                                    class="form-control"
@@ -74,12 +73,12 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">تتبع المستودع
+                                                            <label for="projectinput1">{{__('admin/product.track storage')}}
                                                             </label>
                                                             <select name="manage_stock" class="select2 form-control" id="manageStock">
                                                                 <optgroup label="من فضلك أختر النوع ">
-                                                                    <option value="1">اتاحة التتبع</option>
-                                                                    <option value="0" selected>عدم اتاحه التتبع</option>
+                                                                    <option value="1"> {{__('admin/product.track')}}</option>
+                                                                    <option value="0" selected>{{__('admin/product.not track')}} </option>
                                                                 </optgroup>
                                                             </select>
                                                             @error('manage_stock')
@@ -96,12 +95,12 @@
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">حالة المنتج
+                                                            <label for="projectinput1">{{__('admin/product.status')}}
                                                             </label>
                                                             <select name="in_stock" class="select2 form-control" >
                                                                 <optgroup label="من فضلك أختر  ">
-                                                                    <option value="1">متاح</option>
-                                                                    <option value="0">غير متاح </option>
+                                                                    <option value="1">{{__('admin/product.available')}}</option>
+                                                                    <option value="0">{{__('admin/product.unavailable')}} </option>
                                                                 </optgroup>
                                                             </select>
                                                             @error('in_stock')
@@ -113,7 +112,7 @@
 
                                                     <div class="col-md-6" style="display:none"  id="qtyDiv">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">الكمية
+                                                            <label for="projectinput1">{{__('admin/product.quantity')}}
                                                             </label>
                                                             <input type="text" id="sku"
                                                                    class="form-control"
@@ -138,10 +137,10 @@
                                                 <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i> تراجع
+                                                    <i class="ft-x"></i>{{__('admin/product.return')}}
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> تحديث
+                                                    <i class="la la-check-square-o"></i> {{__('admin/product.next')}}
                                                 </button>
                                             </div>
                                             </div>

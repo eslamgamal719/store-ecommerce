@@ -57,11 +57,11 @@ class ProductsController extends Controller
             $product->tags()->attach($request->tags);
             DB::commit();
 
-            return $this->success('admin.products', 'تم الاضافه بنجاح');
-        } catch (\Exception $ex) {
-            DB::rollback();
-            return $this->error('admin.products', 'هناك خطأ ما');
+            return redirect()->route('admin.products.price', $product->id);
 
+            } catch (\Exception $ex) {
+            DB::rollback();
+            return $this->error('admin.products', __('admin/product.there is error'));
         }
     }
 
@@ -74,13 +74,17 @@ class ProductsController extends Controller
 
     public function saveProductPrice(ProductPriceRequest $request)
     {
-        try {
-           // ->update($request->only(['price', 'special_price', 'special_price_start', 'special_price_end', 'spectail_price_type']));
-            Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
+        try{
+               // ->update($request->only(['price', 'special_price', 'special_price_start', 'special_price_end', 'spectail_price_type']));
+              Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
 
-            return $this->success('admin.products', __('admin/product.updated successfully'));
+              return redirect()->route('admin.products.stock',$request->product_id);
+
         } catch (\Exception $ex) {
+
+            DB::rollback();
             return $this->error('admin.products', __('admin/product.there is error'));
+
         }
     }
 
@@ -96,7 +100,9 @@ class ProductsController extends Controller
             Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
 
             return $this->success('admin.products',  __('admin/product.updated successfully'));
+
         } catch (\Exception $ex) {
+
             return $this->error('admin.products',  __('admin/product.there is error'));
         }
 

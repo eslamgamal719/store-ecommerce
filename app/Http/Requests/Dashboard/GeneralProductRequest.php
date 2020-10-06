@@ -43,9 +43,9 @@ class GeneralProductRequest extends FormRequest
             'name.required'     => __('admin/category.name required'),
             'slug.required'    => __('admin/category.slug required'),
             'slug.unique'       => __('admin/category.slug unique'),
-            'photo.required'   => __('admin/category.photo required'),
-            'photo.mimes'   => __('admin/category.photo invalid'),
-            'type.required'   => __('admin/category.type required'),
+            'description.required'   => __('admin/category.description required'),
+            'categories.min:1'   => __('admin/category.category required'),
+            'brand_id.required'   => __('admin/category.brand required'),
         ];
     }
 }
