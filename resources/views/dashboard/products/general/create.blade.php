@@ -9,8 +9,6 @@
                         <div class="breadcrumb-wrapper col-12">
 
 
-
-
                         </div>
                     </div>
                 </div>
@@ -22,7 +20,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/product.add new product')}} </h4>
+                                    <h4 class="card-title"
+                                        id="basic-layout-form"> {{__('admin/product.add new product')}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -43,31 +42,36 @@
                                               action="{{route('admin.products.general.store')}}"
                                               method="POST"
                                               enctype="multipart/form-data">
-                                             @csrf
-
+                                            @csrf
 
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i> {{__('admin/product.main data')}} </h4>
+                                                <h4 class="form-section"><i
+                                                        class="ft-home"></i> {{__('admin/product.main data')}} </h4>
+
                                                 <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">  {{__('admin/product.name')}}
-                                                            </label>
-                                                            <input type="text" id="name"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{old('name')}}"
-                                                                   name="name">
-                                                            @error("name")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    for="projectinput1">  {{__('admin/product.' . $locale . '.name')}}
+                                                                </label>
+                                                                <input type="text" id="name"
+                                                                       class="form-control"
+                                                                       placeholder="  "
+                                                                       value="{{old($locale . '.name')}}"
+                                                                       name="{{$locale}}[name]">
+                                                                @error($locale . ".name")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    @endforeach
+                                                </div>
 
-                                                    <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-12">
                                                         <div class="form-group">
                                                             <label for="projectinput1">  {{__('admin/product.slug')}}
                                                             </label>
@@ -83,48 +87,59 @@
                                                     </div>
                                                 </div>
 
+
+                                        <div class="row">
+                                            @foreach(config('translatable.locales') as $locale)
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="projectinput1">  {{__('admin/product.' . $locale . '.description')}}
+                                                        </label>
+                                                        <textarea name="{{$locale}}[description]" id="description"
+                                                                  cols="20"
+                                                                  rows="10"
+                                                                  class="ckeditor" placeholder="">{{old($locale . '.description')}}</textarea>
+
+                                                        @error($locale . ".description")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+                                        <div class="row">
+                                            @foreach(config('translatable.locales') as $locale)
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label
+                                                            for="projectinput1">{{__('admin/product.' . $locale . '.short description')}}
+                                                        </label>
+                                                        <textarea name="{{$locale}}[short_description]"
+                                                                  id="short-description"
+                                                                  class="form-control"
+                                                                  placeholder=""
+                                                        >{{old($locale . '.short_description')}}</textarea>
+
+                                                        @error($locale . ".short_description")
+                                                        <span class="text-danger">{{$message}}</span>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
                                                 <div class="row">
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">  {{__('admin/product.description')}}
-                                                            </label>
-                                                            <textarea name="description" id="description" cols="20" rows="10"
-                                                                      class="ckeditor" placeholder="" ></textarea>
-
-                                                            @error("description")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                 <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/product.short description')}}
-                                                            </label>
-                                                            <textarea  name="short_description" id="short-description"
-                                                                       class="form-control"
-                                                                       placeholder=""
-                                                            >{{old('short_description')}}</textarea>
-
-                                                            @error("short_description")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="row" >
 
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  {{__('admin/product.choose categories')}}
+                                                            <label
+                                                                for="projectinput1">  {{__('admin/product.choose categories')}}
                                                             </label>
-                                                            <select name="categories[]" class="select2 form-control" multiple>
+                                                            <select name="categories[]" class="select2 form-control"
+                                                                    multiple>
                                                                 <optgroup label="من فضلك أختر القسم ">
                                                                     @if($categories && $categories -> count() > 0)
                                                                         @foreach($categories as $category)
@@ -142,7 +157,8 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">   {{__('admin/product.choose tags')}}
+                                                            <label
+                                                                for="projectinput1">   {{__('admin/product.choose tags')}}
                                                             </label>
                                                             <select name="tags[]" class="select2 form-control" multiple>
                                                                 <optgroup label=" اختر ألعلامات الدلالية ">
@@ -162,7 +178,8 @@
 
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="projectinput1">  {{__('admin/product.choose brand')}}
+                                                            <label
+                                                                for="projectinput1">  {{__('admin/product.choose brand')}}
                                                             </label>
                                                             <select name="brand_id" class="select2 form-control">
                                                                 <optgroup label="من فضلك أختر الماركة ">
@@ -201,17 +218,15 @@
                                                 </div>
 
 
-
-
-                                         <div class="form-actions">
-                                                <button type="button" class="btn btn-warning mr-1"
-                                                        onclick="history.back();">
-                                                    <i class="ft-x"></i> {{__('admin/product.back')}}
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i>  {{__('admin/product.next')}}
-                                                </button>
-                                            </div>
+                                                <div class="form-actions">
+                                                    <button type="button" class="btn btn-warning mr-1"
+                                                            onclick="history.back();">
+                                                        <i class="ft-x"></i> {{__('admin/product.back')}}
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="la la-check-square-o"></i> {{__('admin/product.next')}}
+                                                    </button>
+                                                </div>
                                             </div>
 
                                         </form>
@@ -233,10 +248,10 @@
 
     <script>
         $('input:radio[name="type"]').change(
-            function(){
+            function () {
                 if (this.checked && this.value == '2') {  // 1 if main cat - 2 if sub cat
                     $('#cats_list').removeClass('hidden');
-                }else{
+                } else {
                     $('#cats_list').addClass('hidden');
                 }
             });

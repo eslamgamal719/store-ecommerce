@@ -23,18 +23,24 @@ class TagsRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'    => 'required',
+        $rules = [
             'slug'  => 'required|unique:tags,slug,' . $this->id
-
         ];
+
+        foreach(config('translatable.locales') as $locale) {
+
+            $rules += [$locale . '.name' => 'required'];
+        }
+
+        return $rules;
     }
 
 
     public function messages()
     {
         return [
-           'name.required'     => __('admin/tags.name required'),
+           'ar.name.required'     => __('admin/tags.ar name required'),
+           'en.name.required'     => __('admin/tags.en name required'),
             'slug.required'    => __('admin/tags.slug required'),
             'slug.unique'       => __('admin/tags.slug unique'),
 

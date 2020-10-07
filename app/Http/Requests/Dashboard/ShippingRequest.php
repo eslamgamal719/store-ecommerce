@@ -23,19 +23,26 @@ class ShippingRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'id'             => 'required|exists:settings',
-            'value'          => 'required',
             'plain_value'    => 'nullable|numeric',
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [
+                $locale . '.value' => 'required'
+            ];
+        }
+
+        return $rules;
     }
 
 
     public function messages()
     {
         return [
-            'value.required'       => __('admin/edit.value required'),
-            'plain_value.numeric'  => __('admin/edit.plain_value required')
+            'value.required'       => __('admin/settings.value required'),
+            'plain_value.numeric'  => __('admin/settings.plain_value required')
         ];
     }
 }

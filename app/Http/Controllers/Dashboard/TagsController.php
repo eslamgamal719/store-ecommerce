@@ -33,7 +33,6 @@ class TagsController extends Controller
 
             DB::beginTransaction();
             $tag = Tag::create($request->except('token'));
-            $tag->name = $request->name;
             $tag->save();
             DB::commit();
 
@@ -64,7 +63,6 @@ class TagsController extends Controller
             DB::beginTransaction();
 
             $tag->update($request->except('_token'));
-            $tag->name = $request->name;
             $tag->save();
             DB::commit();
 

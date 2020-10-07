@@ -38,7 +38,19 @@ return [
     'choose main category' => 'Choose Main Category',
     'main category' => 'Main Category',
     'sub category' => 'Sub Category',
-    '' => '',
+
+
+    'ar name required' => 'Category Name In Arabic Is Required',
+    'en name required' => 'Category Name In English Is Required',
+
+
+    'ar' => [
+        'name' => 'Name in Arabic'
+    ],
+
+    'en' => [
+        'name' => 'Name in English'
+    ],
 
 
 

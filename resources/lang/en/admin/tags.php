@@ -28,7 +28,18 @@ return [
     'slug required' => 'Slug Name Is Required',
     'slug unique' => 'This Slug Name Is Already Exists',
 
+    'ar name required' => 'Tag Name In Arabic Is Required',
+    'en name required' => 'Tag Name In English Is Required',
 
+
+
+    'ar' => [
+        'name' => 'Name in Arabic'
+    ],
+
+    'en' => [
+        'name' => 'Name in English'
+    ],
 
 
 

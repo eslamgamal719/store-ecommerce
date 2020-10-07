@@ -23,10 +23,10 @@
             </li>
 
 
-            <li class="nav-item"><a href=""><i class="la la-group"></i>
+            <li class="nav-item"><a href=""><i class="la la-home"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.categories')}}</span>
                     <span
-                        class="badge badge badge-danger badge-pill float-right mr-2">{{\App\Models\Category::parent()->count()}}</span>
+                        class="badge badge badge-danger badge-pill float-right mr-2">{{\App\Models\Category::count()}}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{'admin.categories' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.categories')}}"
@@ -40,10 +40,10 @@
 
 
 
-            <li class="nav-item"><a href=""><i class="la la-male"></i>
+            <li class="nav-item"><a href=""><i class="la la-globe"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.brands')}}</span>
                     <span
-                        class="badge badge badge-success badge-pill float-right mr-2"></span>
+                        class="badge badge badge-success badge-pill float-right mr-2">{{App\Models\Brand::count()}}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{'admin.brands' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.brands')}}"
@@ -56,10 +56,10 @@
             </li>
 
 
-            <li class="nav-item"><a href=""><i class="la la-male"></i>
+            <li class="nav-item"><a href=""><i class="la la-tags"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.tags')}}</span>
                     <span
-                        class="badge badge badge-warning  badge-pill float-right mr-2"></span>
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{App\Models\Tag::count()}}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{'admin.tags' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.tags')}}"
@@ -72,10 +72,10 @@
             </li>
 
 
-            <li class="nav-item"><a href=""><i class="la la-male"></i>
+            <li class="nav-item"><a href=""><i class="la la-cart-arrow-down"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.products')}}</span>
                     <span
-                        class="badge badge badge-warning  badge-pill float-right mr-2"></span>
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{App\Models\Product::count()}}</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{'admin.products' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.products')}}"
@@ -83,6 +83,27 @@
                     </li>
                     <li><a class="menu-item" href="{{route('admin.products.general.create')}}" data-i18n="nav.dash.crypto">{{__('admin/sidebar.add new product')}}
                              </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class=" nav-item"><a href="#"><span class="menu-title"
+                                                      data-i18n="nav.templates.main"><i class="la la-cogs"></i>{{__('admin/sidebar.settings')}}</span></a>
+                <ul class="menu-content">
+                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i class="la la-shopping-cart"></i>
+                            {{__('admin/sidebar.shipping methods')}}</a>
+                        <ul class="menu-content">
+                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'free')}}"
+                                   data-i18n="nav.templates.vert.classic_menu">{{__('admin/sidebar.free shipping')}}</a>
+                            </li>
+                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'inner')}}">{{__('admin/sidebar.inner shipping')}}</a>
+                            </li>
+                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'outer')}}"
+                                   data-i18n="nav.templates.vert.compact_menu">{{__('admin/sidebar.outer shipping')}}</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>
@@ -102,23 +123,6 @@
             </li>
 
 
-            <li class=" nav-item"><a href="#"><i class="la la-television"></i><span class="menu-title"
-                                                      data-i18n="nav.templates.main">{{__('admin/sidebar.settings')}}</span></a>
-                <ul class="menu-content">
-                    <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main">{{__('admin/sidebar.shipping methods')}}</a>
-                        <ul class="menu-content">
-                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'free')}}"
-                                   data-i18n="nav.templates.vert.classic_menu">{{__('admin/sidebar.free shipping')}}</a>
-                            </li>
-                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'inner')}}">{{__('admin/sidebar.inner shipping')}}</a>
-                            </li>
-                            <li><a class="menu-item" href="{{route('edit.shipping.method', 'outer')}}"
-                                   data-i18n="nav.templates.vert.compact_menu">{{__('admin/sidebar.outer shipping')}}</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
             <li class=" navigation-header">
                 <span data-i18n="nav.category.layouts">Layouts</span><i class="la la-ellipsis-h ft-minus"
                                                                         data-toggle="tooltip"

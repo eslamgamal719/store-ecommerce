@@ -37,6 +37,7 @@ class ProductsController extends Controller
     public function store(GeneralProductRequest $request)
     {
         try {
+
             DB::beginTransaction();
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
@@ -44,13 +45,7 @@ class ProductsController extends Controller
                 $request->request->add(['is_active' => 1]);
 
 
-            $product = Product::create($request->only(['slug', 'brand_id', 'is_active']));  //save in products table
-
-            // save in product trandlations table
-            $product->name = $request->name;
-            $product->description = $request->description;
-            $product->short_description = $request->short_description;
-            $product->save();
+            $product = Product::create($request->except('categories', 'tags'));  //save in products table
 
             //save many-to-many with categories and tags tables
             $product->categories()->attach($request->categories);

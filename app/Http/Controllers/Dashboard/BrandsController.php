@@ -41,7 +41,6 @@ class BrandsController extends Controller
                 $fileName = uploadImage('brands', $request->photo);
 
             $brand = Brand::create($request->except('token', 'photo'));
-            $brand->name = $request->name;
             $brand->photo = $fileName;
             $brand->save();
             DB::commit();
@@ -77,13 +76,12 @@ class BrandsController extends Controller
 
             DB::beginTransaction();
             if($request->has('photo')){
-                Storage::disk('brands')->delete($brand->photo);
+                Storage::disk('brands')->delete('/brands/' . $brand->photo);
                 $fileName = uploadImage('brands', $request->photo);
                 $brand->photo = $fileName;
             }
 
             $brand->update($request->except('_token', 'photo'));
-            $brand->name = $request->name;
             $brand->save();
             DB::commit();
 

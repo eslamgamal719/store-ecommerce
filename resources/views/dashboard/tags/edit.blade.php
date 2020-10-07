@@ -57,28 +57,32 @@
 
 
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-home"></i> {{__('admin/tags.tag data')}} </h4>
+                                                <h4 class="form-section"><i
+                                                        class="ft-home"></i> {{__('admin/tags.tag data')}} </h4>
+
+                                                <div class="row">
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    for="projectinput1">{{__('admin/tags.' . $locale . '.name')}}
+                                                                </label>
+                                                                <input type="text" id="name"
+                                                                       class="form-control"
+                                                                       placeholder="  "
+                                                                       value="{{$tag->translate($locale)->name}}"
+                                                                       name="{{$locale}}[name]">
+
+                                                                @error($locale .".name")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
 
                                                 <div class="row">
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/tags.name')}}
-                                                            </label>
-
-                                                            <input type="text" id="name"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{$tag -> name}}"
-                                                                   name="name">
-
-                                                            @error("name")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-
-                                                <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/tags.slug')}}
                                                             </label>
@@ -96,7 +100,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
 
 
                                             <div class="form-actions">

@@ -37,6 +37,7 @@ class CategoriesController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         try {
+
             $category = $this->getElementById($id);
             if (!$category)
                 return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
@@ -46,13 +47,14 @@ class CategoriesController extends Controller
             else
                 $request->request->add(['is_active' => 1]);
 
-            Storage::disk('categories')->delete($category->photo);
-            $fileName = uploadImage('categories', $request->photo);
+            if($request->has('photo')) {
+                Storage::disk('categories')->delete($category->photo);
+                $fileName = uploadImage('categories', $request->photo);
+                $category->photo = $fileName;
+            }
 
             DB::beginTransaction();
-            $category->update($request->all());
-            $category->name = $request->name;
-            $category->photo = $fileName;
+            $category->update($request->except('photo'));
             $category->save();
             DB::commit();
 
@@ -86,7 +88,6 @@ class CategoriesController extends Controller
 
             DB::beginTransaction();
             $category = Category::create($request->except('_token', 'photo')); //can use all
-            $category->name = $request->name;
             $category->photo = $fileName;
             $category->save();
             DB::commit();

@@ -35,9 +35,9 @@ return [
     'main data' => 'Main Data',
     'description' => 'Description',
     'short description' => 'Short Description',
-    'choose categories' => 'Choose Categories',
-    'choose tags' => 'Choose Tags',
-    'choose brand' => 'Choose Brand',
+    'choose categories' => 'Categories',
+    'choose tags' => 'Tags',
+    'choose brand' => 'Brand',
     'back' => 'Back',
     'next' => 'Next',
 
@@ -73,6 +73,28 @@ return [
     'Manage Stock is required' => 'Manage Stock is required',
     'In Stock is required' => 'In Stock Is required',
 
+
+
+    'ar name required' => 'Name in Arabic is required',
+    'en name required' => 'Name in English is required',
+    'ar description required' => 'Description in Arabic is required',
+    'en description required' => 'Description in English is required',
+    'category required' => 'You must choose category',
+
+
+
+
+    'ar' => [
+        'name' => 'Name in Arabic',
+        'description' => 'Description in Arabic',
+        'short description' => 'Short description in Arabic'
+    ],
+
+    'en' => [
+        'name' => 'Name in English',
+        'description' => 'Description in English',
+        'short description' => 'Short description in English'
+    ],
 
 
 

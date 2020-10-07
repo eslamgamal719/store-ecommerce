@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    {{__('admin/edit.edit shipping')}}
+    {{__('admin/settings.edit shipping')}}
 @stop
 
 @section('content')
@@ -13,9 +13,9 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">{{__('admin/edit.main')}}</a>
+                                <li class="breadcrumb-item"><a href="">{{__('admin/settings.main')}}</a>
                                 </li>
-                                <li class="breadcrumb-item active">{{__('admin/edit.shipping methods')}}
+                                <li class="breadcrumb-item active">{{__('admin/settings.shipping methods')}}
                                 </li>
                             </ol>
                         </div>
@@ -29,7 +29,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{__('admin/edit.edit shipping method')}}</h4>
+                                    <h4 class="card-title"
+                                        id="basic-layout-form">{{__('admin/settings.edit shipping method')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -45,7 +46,8 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" action="{{route('update.shipping.method',$shippingMethod -> id)}}"
+                                        <form class="form"
+                                              action="{{route('update.shipping.method',$shippingMethod -> id)}}"
                                               method="post"
                                               enctype="multipart/form-data">
                                             @csrf
@@ -55,24 +57,36 @@
                                             <input type="hidden" name="id" value="{{$shippingMethod -> id}}">
 
                                             <div class="form-body">
+
+                                                <div class="row">
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    for="projectinput1"> {{__('admin/settings.' . $locale . '.shipping name')}} </label>
+                                                                <input type="text"
+                                                                       value="{{$shippingMethod->translate($locale)->value ?? ''}}"
+                                                                       id="name"
+                                                                       class="form-control"
+                                                                       placeholder=""
+                                                                       name="{{$locale}}[value]">
+                                                                @error($locale . ".value")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+
+
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="projectinput1"> {{__('admin/edit.shipping name')}} </label>
-                                                            <input type="text" value="{{$shippingMethod -> value}}" id="name"
-                                                                   class="form-control"
-                                                                   placeholder=""
-                                                                   name="value">
-                                                            @error("value")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/edit.shipping value')}}</label>
-                                                            <input type="number" value="{{$shippingMethod->plain_value}}" id="plain_value"
+                                                            <label
+                                                                for="projectinput1">{{__('admin/settings.shipping value')}}</label>
+                                                            <input type="number"
+                                                                   value="{{$shippingMethod->plain_value}}"
+                                                                   id="plain_value"
                                                                    class="form-control"
                                                                    placeholder="  "
                                                                    name="plain_value">
@@ -86,10 +100,10 @@
                                                 <div class="form-actions">
                                                     <button type="button" class="btn btn-warning mr-1"
                                                             onclick="history.back();">
-                                                        <i class="ft-x"></i> {{__('admin/edit.return')}}
+                                                        <i class="ft-x"></i> {{__('admin/settings.return')}}
                                                     </button>
                                                     <button type="submit" class="btn btn-primary">
-                                                        <i class="la la-check-square-o"></i> {{__('admin/edit.save')}}
+                                                        <i class="la la-check-square-o"></i> {{__('admin/settings.save')}}
                                                     </button>
                                                 </div>
                                         </form>

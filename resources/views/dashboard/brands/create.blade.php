@@ -33,7 +33,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{__('admin/brands.add new brand')}}</h4>
+                                    <h4 class="card-title"
+                                        id="basic-layout-form">{{__('admin/brands.add new brand')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -75,84 +76,88 @@
                                                 </h4>
 
 
-                                              <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="projectinput1">{{__('admin/brands.name')}}
-                                                        </label>
+                                                <div class="row">
 
-                                                        <input type="text" id="name"
-                                                               class="form-control"
-                                                               placeholder="  "
-                                                               value="{{old('name')}}"
-                                                               name="name">
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="projectinput1">{{__('admin/brands.' . $locale . '.name')}}
+                                                                </label>
 
-                                                        @error("name")
-                                                        <span class="text-danger">{{$message}}</span>
-                                                        @enderror
-                                                    </div>
+                                                                <input type="text" id="name"
+                                                                       class="form-control"
+                                                                       placeholder="  "
+                                                                       value="{{old($locale . '.name')}}"
+                                                                       name="{{$locale}}[name]">
+
+                                                                @error($locale . ".name")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+
                                                 </div>
 
 
-                                           {{--      <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="projectinput1">{{__('admin/category.slug')}}
-                                                        </label>
+                                                {{--      <div class="col-md-6">
+                                                         <div class="form-group">
+                                                             <label for="projectinput1">{{__('admin/category.slug')}}
+                                                             </label>
 
-                                                        <input type="text" id="name"
-                                                               class="form-control"
-                                                               placeholder="  "
-                                                               value="{{old('slug')}}"
-                                                               name="slug">
+                                                             <input type="text" id="name"
+                                                                    class="form-control"
+                                                                    placeholder="  "
+                                                                    value="{{old('slug')}}"
+                                                                    name="slug">
 
-                                                        @error("slug")
-                                                        <span class="text-danger">{{$message}}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>  --}}
+                                                             @error("slug")
+                                                             <span class="text-danger">{{$message}}</span>
+                                                             @enderror
+                                                         </div>
+                                                     </div>  --}}
 
 
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group mt-1">
-                                                        <input type="checkbox" value="1"
-                                                               name="is_active"
-                                                               id="switcheryColor4"
-                                                               class="switchery" data-color="success"
-                                                               checked/>
-                                                        <label for="switcheryColor4"
-                                                               class="card-title ml-1">{{__('admin/brands.status')}}  </label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group mt-1">
+                                                            <input type="checkbox" value="1"
+                                                                   name="is_active"
+                                                                   id="switcheryColor4"
+                                                                   class="switchery" data-color="success"
+                                                                   checked/>
+                                                            <label for="switcheryColor4"
+                                                                   class="card-title ml-1">{{__('admin/brands.status')}}  </label>
 
-                                                        @error("is_active")
-                                                        <span class="text-danger"> {{$message}}</span>
-                                                        @enderror
+                                                            @error("is_active")
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+
+
+                                            <div class="form-actions">
+                                                <button type="button" class="btn btn-warning mr-1"
+                                                        onclick="history.back();">
+                                                    <i class="ft-x"></i> {{__('admin/brands.return')}}
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> {{__('admin/brands.create')}}
+                                                </button>
+                                            </div>
+                                        </form>
+
                                     </div>
-
-
-                                    <div class="form-actions">
-                                        <button type="button" class="btn btn-warning mr-1"
-                                                onclick="history.back();">
-                                            <i class="ft-x"></i> {{__('admin/brands.return')}}
-                                        </button>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="la la-check-square-o"></i> {{__('admin/brands.create')}}
-                                        </button>
-                                    </div>
-                                    </form>
-
                                 </div>
                             </div>
                         </div>
                     </div>
+                </section>
+                <!-- // Basic form layout section end -->
             </div>
-            </section>
-            <!-- // Basic form layout section end -->
         </div>
-    </div>
 
 
 

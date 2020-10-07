@@ -24,28 +24,37 @@ class GeneralProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'    => 'required|max:100',
+        $rules = [
             'slug'  => 'required|unique:products,slug',
-            'description' => 'required|max:1000',
-            'short_description' => 'nullable:max:500',
-            'categories' => 'array|min:1',
             'categories.*' => 'numeric|exists:categories,id',
+            'categories.0' => 'required',
             'tags' => 'nullable',
             'brand_id' => 'required|exists:brands,id',
         ];
+
+        foreach(config('translatable.locales') as $locale) {
+            $rules += [
+                $locale . '.name' => 'required|max:100',
+                $locale . '.description' => 'required|max:1000',
+                $locale . '.short_description' => 'nullable:max:500'
+            ];
+        }
+
+        return $rules;
     }
 
 
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
-            'slug.required'    => __('admin/category.slug required'),
-            'slug.unique'       => __('admin/category.slug unique'),
-            'description.required'   => __('admin/category.description required'),
-            'categories.min:1'   => __('admin/category.category required'),
-            'brand_id.required'   => __('admin/category.brand required'),
+            'ar.name.required'     => __('admin/product.ar name required'),
+            'en.name.required'     => __('admin/product.en name required'),
+            'slug.required'    => __('admin/product.slug required'),
+            'slug.unique'       => __('admin/product.slug unique'),
+            'ar.description.required'   => __('admin/product.ar description required'),
+            'en.description.required'   => __('admin/product.en description required'),
+            'categories.0.required'   => __('admin/product.category required'),
+            'brand_id.required'   => __('admin/product.brand required'),
         ];
     }
 }

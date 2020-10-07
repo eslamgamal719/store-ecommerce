@@ -77,5 +77,26 @@ return [
     'In Stock is required' => 'يجب اختيار اذا كان المنتج متاح ام لا',
 
 
+    'ar name required' => 'الاسم باللغه العربيه مطلوب',
+    'en name required' => 'الاسم باللغه الانجليزيه مطلوب',
+    'ar description required' => 'الوصف باللغه العربيه مطلوب',
+    'en description required' => 'الوصف باللغه الانجليزيه مطلوب',
+    'category required' => 'يجب اختيار القسم',
+
+
+
+
+
+    'ar' => [
+        'name' => 'الاسم باللغه العربيه',
+        'description' => 'الوصف باللغه العربيه',
+        'short-description' => 'الوصف القصير باللغه العربيه'
+    ],
+
+    'en' => [
+        'name' => 'الاسم باللغه الانجليزيه',
+        'description' => 'الوصف باللغه الانجليزيه',
+        'short-description' => 'الوصف القصير باللغه الانجليزيه'
+    ],
 
 ];
