@@ -24,7 +24,7 @@ class BrandsRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'photo' => 'required_without:id|mimes:jpg,jpeg,png'
+            'photo' => 'mimes:jpg,jpeg,png'
         ];
 
         foreach (config('translatable.locales') as $locale) {

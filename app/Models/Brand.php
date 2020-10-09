@@ -13,7 +13,9 @@ class Brand extends Model
 
     protected $translatedAttributes = ['name'];
 
-    protected $fillable = ['is_active'];
+    protected $guarded = [];
+
+    protected $appends = ['photo_url'];
 
     protected $casts = [
         'is_active' => 'boolean'

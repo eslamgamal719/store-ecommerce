@@ -14,7 +14,7 @@ class AddPhotoColumnToCategoriesTable extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('photo')->nullable()->after('is_active');
+            $table->string('photo')->default('default.jpeg')->after('is_active');
         });
     }
 

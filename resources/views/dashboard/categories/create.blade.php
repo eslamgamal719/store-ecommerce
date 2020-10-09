@@ -58,15 +58,30 @@
 
 
                                             <div class="form-group">
+                                                <div class="text-center">
+                                                    <img
+                                                        src="{{asset('assets/images/categories/default.jpeg')}}"
+                                                        class="rounded-circle  height-150 image-preview" alt="صورة القسم  ">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
                                                 <label> {{__('admin/category.image')}} </label>
                                                 <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
+                                                    <input type="file" id="file" name="photo" class="image">
                                                     <span class="file-custom"></span>
                                                 </label>
                                                 @error('photo')
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
+
+
+                                            <div class="form-group">
+                                                <img src="{{asset('assets/images/brands/default.jpeg')}}" style="width: 70px" class="img-thumbnail image-preview">
+                                            </div>
+
 
 
                                             <div class="form-body">

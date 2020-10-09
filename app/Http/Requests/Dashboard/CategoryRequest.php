@@ -26,7 +26,7 @@ class CategoryRequest extends FormRequest
     {
         $rules = [
             'slug'  => 'required|unique:categories,slug,' . $this->id,
-            'photo' => 'required_without:id|mimes:jpg,png,jpeg',
+            'photo' => 'mimes:jpg,png,jpeg',
             'type'  => 'required|in:'. CategoryType::MainCategory . "," . CategoryType::SubCategory,
         ];
 

@@ -61,14 +61,14 @@
                                                 <div class="text-center">
                                                     <img
                                                         src="{{$category-> photo_url}}"
-                                                        class="rounded-circle  height-150" alt="صورة القسم  ">
+                                                        class="rounded-circle  height-150 image-preview" alt="صورة القسم  ">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label> {{__('admin/category.image')}} </label>
                                                 <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
+                                                    <input type="file" id="file" name="photo" class="image">
                                                     <span class="file-custom"></span>
                                                 </label>
                                                 @error('photo')

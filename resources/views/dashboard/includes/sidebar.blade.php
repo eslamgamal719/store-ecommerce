@@ -46,7 +46,7 @@
                         class="badge badge badge-success badge-pill float-right mr-2">{{App\Models\Brand::count()}}</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{'admin.brands' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.brands')}}"
+                    <li class="{{'admin.brands' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.brands.index')}}"
                                           data-i18n="nav.dash.ecommerce">{{__('admin/sidebar.show all')}}</a>
                     </li>
                     <li><a class="menu-item" href="{{route('admin.brands.create')}}" data-i18n="nav.dash.crypto">

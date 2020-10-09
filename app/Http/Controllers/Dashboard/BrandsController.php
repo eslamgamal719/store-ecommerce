@@ -35,19 +35,23 @@ class BrandsController extends Controller
             else
                 $request->request->add(['is_active' => 1]);
 
+
             DB::beginTransaction();
-            $fileName = '';
-            if ($request->has('photo'))
-                $fileName = uploadImage('brands', $request->photo);
 
             $brand = Brand::create($request->except('token', 'photo'));
-            $brand->photo = $fileName;
-            $brand->save();
+
+            $fileName = '';
+            if ($request->has('photo')){
+                $fileName = uploadImage('brands', $request->photo);
+                $brand->photo = $fileName;
+                $brand->save();
+            }
+
             DB::commit();
 
-            return $this->success('admin.brands', __('admin/brands.add successfully'));
+            return $this->success('admin.brands.index', __('admin/brands.add successfully'));
         } catch (\Exception $ex) {
-            return $this->error('admin.brands', __('admin/brands.add fail'));
+            return $this->error('admin.brands.index', __('admin/brands.add fail'));
         }
     }
 
@@ -56,7 +60,7 @@ class BrandsController extends Controller
     {
         $brand = Brand::find($id);
         if (!$brand)
-            $this->notFoundMsg('admin.brands', __('admin/brands.brand not found'));
+            $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
 
         return view('dashboard.brands.edit', compact('brand'));
     }
@@ -67,27 +71,37 @@ class BrandsController extends Controller
         try {
             $brand = Brand::find($id);
             if (!$brand)
-                $this->notFoundMsg('admin.brands', __('admin/brands.brand not found'));
+                $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
+
 
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
             else
                 $request->request->add(['is_active' => 1]);
 
+
             DB::beginTransaction();
-            if($request->has('photo')){
-                Storage::disk('brands')->delete('/brands/' . $brand->photo);
-                $fileName = uploadImage('brands', $request->photo);
-                $brand->photo = $fileName;
-            }
 
             $brand->update($request->except('_token', 'photo'));
-            $brand->save();
+
+            if($request->has('photo')){
+
+                if($brand->photo != 'default.jpeg'){
+
+                    Storage::disk('brands')->delete($brand->photo);
+                }
+
+                $fileName = uploadImage('brands', $request->photo);
+                $brand->photo = $fileName;
+                $brand->save();
+            }
+
             DB::commit();
 
-            return $this->success('admin.brands', __('admin/brands.updated successfully'));
+            return $this->success('admin.brands.index', __('admin/brands.updated successfully'));
         } catch (\Exception $ex) {
-            return $this->error('admin.brands', __('admin/brands.fail'));
+            DB::rollback();
+            return $this->error('admin.brands.index', __('admin/brands.fail'));
         }
     }
 
@@ -97,16 +111,20 @@ class BrandsController extends Controller
         try {
             $brand = Brand::find($id);
             if (!$brand)
-                $this->notFoundMsg('admin.brands', __('admin/brands.brand not found'));
+                $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
 
             $brand->translations()->delete();
-            Storage::disk('brands')->delete($brand->photo);
+
+            if($brand->photo != 'default.jpeg'){
+                Storage::disk('brands')->delete($brand->photo);
+            }
+
             $brand->delete();
 
-            return $this->success('admin.brands', __('admin/brands.deleted successfully'));
+            return $this->success('admin.brands.index', __('admin/brands.deleted successfully'));
 
         } catch (\Exception $ex) {
-            return $this->error('admin.brands', __('admin/brands.fail'));
+            return $this->error('admin.brands.index', __('admin/brands.fail'));
         }
     }
 

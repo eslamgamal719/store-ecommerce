@@ -60,20 +60,22 @@
                                                 <div class="text-center">
                                                     <img
                                                         src="{{$brand -> photo_url}}"
-                                                        class="rounded-circle  height-150" alt="صورة القسم  ">
+                                                        class="rounded-circle  height-150 image-preview" alt="صورة القسم  ">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label> {{__('admin/brands.image')}} </label>
                                                 <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
+                                                    <input type="file" id="file" name="photo" class="image">
                                                     <span class="file-custom"></span>
                                                 </label>
                                                 @error('photo')
                                                 <span class="text-danger">{{$message}}</span>
                                                 @enderror
                                             </div>
+
+
 
 
                                             <div class="form-body">

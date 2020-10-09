@@ -73,7 +73,7 @@
 
                                                         <td>{{$category -> slug}}</td>
                                                         <td>{{$category -> getActive()}}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src="{{ $category -> photo_url }}"></td>
+                                                        <td> <img style="width: 150px; height: 100px;" class="img-xl" src="{{ $category -> photo_url }}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">

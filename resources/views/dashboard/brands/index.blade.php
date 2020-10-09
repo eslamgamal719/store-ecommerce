@@ -68,7 +68,7 @@
                                                     <tr>
                                                         <td>{{$brand -> name}}</td>
                                                         <td>{{$brand -> getActive()}}</td>
-                                                        <td> <img style="width: 150px; height: 100px;" src="{{$brand->photo_url}}"></td>
+                                                        <td> <img style="width: 120px; height: 80px;" class="img-thumbnail" src="{{$brand->photo_url}}"></td>
                                                         <td>
                                                             <div class="btn-group" role="group"
                                                                  aria-label="Basic example">
@@ -76,7 +76,7 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.edit')}}</a>
 
 
-                                                                <a href="{{route('admin.brands.delete',$brand -> id)}}"
+                                                                <a href="{{route('admin.brands.destroy',$brand -> id)}}"
                                                                    class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.delete')}}</a>
 
                                                             </div>
