@@ -20,9 +20,13 @@ class ProductsController extends Controller
 
     public function index()
     {
+
         $products = Product::select('id', 'slug', 'price', 'created_at')->paginate(PAGINATION_COUNT);
         return view('dashboard.products.general.index', compact('products'));
-    }
+
+    } // end of index
+
+
 
     public function create()
     {
@@ -32,7 +36,10 @@ class ProductsController extends Controller
         $data['categories'] = Category::active()->select('id')->orderBy('id', 'DESC')->get();
 
         return view('dashboard.products.general.create', $data);
-    }
+
+    } // end of create
+
+
 
     public function store(GeneralProductRequest $request)
     {
@@ -54,17 +61,25 @@ class ProductsController extends Controller
 
             return redirect()->route('admin.products.price', $product->id);
 
-            } catch (\Exception $ex) {
+            } catch (\Exception $ex)
+        {
+
             DB::rollback();
             return $this->error('admin.products', __('admin/product.there is error'));
         }
-    }
+
+    } //end of store
+
+
 
 
     public function getPrice($product_id)
     {
+
         return view('dashboard.products.price.create')->with('id', $product_id);
-    }
+
+    } // end of get price
+
 
 
     public function saveProductPrice(ProductPriceRequest $request)
@@ -81,12 +96,17 @@ class ProductsController extends Controller
             return $this->error('admin.products', __('admin/product.there is error'));
 
         }
-    }
+
+    } // end of save product price
+
 
 
     public function getStock($product_id) {
+
         return view('dashboard.products.stock.create')->with('id', $product_id);
-    }
+
+    } // end of get stock
+
 
 
     public function saveProductStock (ProductStockRequest $request) {
@@ -94,14 +114,27 @@ class ProductsController extends Controller
         try{
             Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
 
-            return $this->success('admin.products',  __('admin/product.updated successfully'));
+            return redirect()->route('admin.products.images', $request->product_id);
 
         } catch (\Exception $ex) {
 
             return $this->error('admin.products',  __('admin/product.there is error'));
         }
 
-    }
+    } //end of save product stock
+
+
+
+    public function addImage($product_id) {
+
+        return view('dashboard.products.images.create')->withId($product_id);
+
+    } // end of add Image
+
+
+    public function saveProductImage() {
+        //
+    } // end of save product image
 
 
 

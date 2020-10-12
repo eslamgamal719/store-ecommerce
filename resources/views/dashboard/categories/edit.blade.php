@@ -54,6 +54,7 @@
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
+                                            {{method_field('put')}}
 
                                             <input name="id" value="{{$category -> id}}" type="hidden">
 

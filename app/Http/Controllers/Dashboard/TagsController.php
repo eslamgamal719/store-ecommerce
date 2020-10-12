@@ -36,9 +36,9 @@ class TagsController extends Controller
             $tag->save();
             DB::commit();
 
-            return $this->success('admin.tags', __('admin/tags.add successfully'));
+            return $this->success('admin.tags.index', __('admin/tags.add successfully'));
         } catch (\Exception $ex) {
-            return $this->error('admin.tags', __('admin/tags.add fail'));
+            return $this->error('admin.tags.index', __('admin/tags.add fail'));
         }
     }
 
@@ -47,7 +47,7 @@ class TagsController extends Controller
     {
         $tag = Tag::find($id);
         if (!$tag)
-            $this->notFoundMsg('admin.tags', __('admin/tags.tag not found'));
+            $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
 
         return view('dashboard.tags.edit', compact('tag'));
     }
@@ -58,7 +58,7 @@ class TagsController extends Controller
         try {
             $tag = Tag::find($id);
             if (!$tag)
-                $this->notFoundMsg('admin.tags', __('admin/tags.tag not found'));
+                $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
 
             DB::beginTransaction();
 
@@ -66,9 +66,9 @@ class TagsController extends Controller
             $tag->save();
             DB::commit();
 
-            return $this->success('admin.tags', __('admin/tags.updated successfully'));
+            return $this->success('admin.tags.index', __('admin/tags.updated successfully'));
         } catch (\Exception $ex) {
-            return $this->error('admin.tags', __('admin/tags.add fail'));
+            return $this->error('admin.tags.index', __('admin/tags.add fail'));
         }
     }
 
@@ -78,15 +78,15 @@ class TagsController extends Controller
         try {
             $tag = Tag::find($id);
             if (!$tag)
-                $this->notFoundMsg('admin.tags', __('admin/tags.tag not found'));
+                $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
 
             $tag->translations()->delete();
             $tag->delete();
 
-            return $this->success('admin.tags', __('admin/tags.deleted successfully'));
+            return $this->success('admin.tags.index', __('admin/tags.deleted successfully'));
 
         } catch (\Exception $ex) {
-            return $this->error('admin.tags', __('admin/tags.fail'));
+            return $this->error('admin.tags.index', __('admin/tags.fail'));
         }
     }
 

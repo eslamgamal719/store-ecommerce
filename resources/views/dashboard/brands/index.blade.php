@@ -76,8 +76,11 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.edit')}}</a>
 
 
-                                                                <a href="{{route('admin.brands.destroy',$brand -> id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/brands.delete')}}</a>
+                                                                <form action="{{route('admin.brands.destroy',$brand -> id)}}" method="post" style="display: inline-block">
+                                                                    @csrf
+                                                                    {{method_field('delete') }}
+                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"><i class="fa fa-trash"></i>{{__('admin/brands.delete')}}</button>
+                                                                </form>
 
                                                             </div>
                                                         </td>

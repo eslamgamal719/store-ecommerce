@@ -27,7 +27,7 @@ class CategoriesController extends Controller
     {
         $category = $this->getElementById($id);
         if (!$category)
-            return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
+            return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
 
         $allCategories = Category::parent()->select('id', 'parent_id')->get();
         return view('dashboard.categories.edit', compact('category', 'allCategories'));
@@ -40,7 +40,7 @@ class CategoriesController extends Controller
 
             $category = $this->getElementById($id);
             if (!$category)
-                return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
+                return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
 
             if (!$request->has('is_active'))
                 $request->request->add(['is_active' => 0]);
@@ -61,12 +61,12 @@ class CategoriesController extends Controller
                 $category->save();
             }
 
-            return $this->success('admin.categories', __('admin/category.updated successfully'));
+            return $this->success('admin.categories.index', __('admin/category.updated successfully'));
 
         } catch (\Exception $ex) {
 
             DB::rollback();
-            return $this->error('admin.categories', __('admin/category.there is error'));
+            return $this->error('admin.categories.index', __('admin/category.there is error'));
         }
     }
 
@@ -105,11 +105,11 @@ class CategoriesController extends Controller
 
             DB::commit();
 
-            return $this->success('admin.categories', __('admin/category.added successfully'));
+            return $this->success('admin.categories.index', __('admin/category.added successfully'));
 
         } catch (\Exception $ex) {
             DB::rollback();
-            return $this->error('admin.categories', __('admin/category.there is error'));
+            return $this->error('admin.categories.index', __('admin/category.there is error'));
         }
     }
 
@@ -118,7 +118,7 @@ class CategoriesController extends Controller
         try {
             $category = $this->getElementById($id);
             if (!$category)
-                return $this->notFoundMsg('admin.categories', __('admin/category.category not found'));
+                return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
 
             DB::beginTransaction();
 
@@ -137,11 +137,11 @@ class CategoriesController extends Controller
 
             DB::commit();
 
-            return $this->success('admin.categories', __('admin/category.deleted successfully'));
+            return $this->success('admin.categories.index', __('admin/category.deleted successfully'));
 
         } catch (\Exception $ex) {
             DB::rollback();
-            return $this->error('admin.categories', __('admin/category.there is error'));
+            return $this->error('admin.categories.index', __('admin/category.there is error'));
         }
 
     }

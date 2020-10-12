@@ -27,6 +27,7 @@ return [
     'updated successfully' => 'تمت التحديث بنجاح',
     'deleted successfully' => 'تمت الحذف بنجاح',
     'fail' => 'حدث خطأ ما الرجاء اعاده المحاوله',
+    'edit brand' => 'تعديل الماركه',
 
 
     'ar name required' => 'اسم الماركه باللغه العربيه مطلوب',

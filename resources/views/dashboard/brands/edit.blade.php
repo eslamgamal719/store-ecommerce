@@ -53,6 +53,7 @@
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
+                                            {{method_field('put')}}
 
                                             <input name="id" value="{{$brand -> id}}" type="hidden">
 

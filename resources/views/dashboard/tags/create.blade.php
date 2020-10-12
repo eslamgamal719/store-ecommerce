@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item"><a href="">{{__('admin/tags.main')}} </a>
                                 </li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{route('admin.tags')}}"> {{__('admin/tags.tags')}} </a>
+                                        href="{{route('admin.tags.index')}}"> {{__('admin/tags.tags')}} </a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                 </li>

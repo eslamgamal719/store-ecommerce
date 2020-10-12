@@ -81,8 +81,11 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/category.edit')}}</a>
 
 
-                                                                <a href="{{route('admin.categories.delete',$category -> id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/category.delete')}}</a>
+                                                                <form action="{{route('admin.categories.destroy',$category -> id)}}" method="post" style="display: inline-block">
+                                                                    @csrf
+                                                                    {{method_field('delete') }}
+                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"><i class="fa fa-trash"></i>{{__('admin/category.delete')}}</button>
+                                                                </form>
 
                                                             </div>
                                                         </td>
