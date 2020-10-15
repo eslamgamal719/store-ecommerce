@@ -21,7 +21,7 @@ Route::group(
     ], function () {
 
 
-    Route::group(['namespace' => 'Dashboard','as' => 'admin.' , 'middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
+    Route::group(['namespace' => 'Dashboard', 'as' => 'admin.' , 'middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
 
         //Dashboard Route and logout
         Route::get('/', 'DashboardController@index')->name('dashboard');
@@ -58,7 +58,7 @@ Route::group(
         Route::group(['prefix' => 'products'], function () {
             Route::get('/','ProductsController@index') -> name('products');
             Route::get('general-information','ProductsController@create') -> name('products.general.create');
-            Route::post('store-general-information','ProductsController@store') -> name('products.general.store');
+           Route::post('store-general-information','ProductsController@store') -> name('products.general.store');
 
             Route::get('price/{id}','ProductsController@getPrice') -> name('products.price');
             Route::post('price','ProductsController@saveProductPrice') -> name('products.price.store');
@@ -67,7 +67,8 @@ Route::group(
             Route::post('stock','ProductsController@saveProductStock') -> name('products.stock.store');
 
             Route::get('images/{id}','ProductsController@addImage') -> name('products.images');
-            Route::post('stock','ProductsController@saveProductImage') -> name('products.images.store');
+            Route::post('images','ProductsController@saveProductImage') -> name('products.images.store');
+            Route::post('images/database','ProductsController@saveProductImageDB') -> name('products.images.store.db');
 
         });
 

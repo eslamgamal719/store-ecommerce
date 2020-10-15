@@ -8,12 +8,13 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">{{__('admin/product.main')}} </a>
+                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
                                 </li>
                                 <li class="breadcrumb-item"><a href="">
-                                         {{__('admin/product.storage')}}</a>
+                                        المنتجات </a>
                                 </li>
-
+                                <li class="breadcrumb-item active"> أضافه منتج
+                                </li>
                             </ol>
                         </div>
                     </div>
@@ -26,7 +27,7 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/product.storage administration')}} </h4>
+                                    <h4 class="card-title" id="basic-layout-form"> أضافة منتج جديد </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -43,106 +44,35 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form"
-                                              action="{{route('admin.products.images.store')}}"
+                                              action="{{route('admin.products.images.store.db')}}"
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
 
-                                    <input type="hidden" name="product_id" value="{{$id}}">
+                                            <input type="hidden" name="product_id" value="{{$id}}">
 
                                             <div class="form-body">
 
-                                                <h4 class="form-section"><i class="ft-home"></i>{{__('admin/product.storage administration')}}</h4>
-                                                <div class="row">
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1"> {{__('admin/product.product code')}}
-                                                            </label>
-                                                            <input type="text" id="sku"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{old('sku')}}"
-                                                                   name="sku">
-                                                            @error("sku")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
+                                                <h4 class="form-section"><i class="ft-home"></i> صور المنتج </h4>
+                                                <div class="form-group">
+                                                    <div id="dpz-multiple-files" class="dropzone dropzone-area">
+                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
                                                     </div>
-
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/product.track storage')}}
-                                                            </label>
-                                                            <select name="manage_stock" class="select2 form-control" id="manageStock">
-                                                                <optgroup label="من فضلك أختر النوع ">
-                                                                    <option value="1"> {{__('admin/product.track')}}</option>
-                                                                    <option value="0" selected>{{__('admin/product.not track')}} </option>
-                                                                </optgroup>
-                                                            </select>
-                                                            @error('manage_stock')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="row">
-                                                    <!-- QTY  -->
-
-
-
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/product.status')}}
-                                                            </label>
-                                                            <select name="in_stock" class="select2 form-control" >
-                                                                <optgroup label="من فضلك أختر  ">
-                                                                    <option value="1">{{__('admin/product.available')}}</option>
-                                                                    <option value="0">{{__('admin/product.unavailable')}} </option>
-                                                                </optgroup>
-                                                            </select>
-                                                            @error('in_stock')
-                                                            <span class="text-danger"> {{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="col-md-6" style="display:none"  id="qtyDiv">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/product.quantity')}}
-                                                            </label>
-                                                            <input type="text" id="sku"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{old('qty')}}"
-                                                                   name="qty">
-                                                            @error("qty")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
+                                                    <br><br>
                                                 </div>
 
 
+                                            </div>
 
 
-
-
-
-
-
-                                                <div class="form-actions">
+                                            <div class="form-actions">
                                                 <button type="button" class="btn btn-warning mr-1"
                                                         onclick="history.back();">
-                                                    <i class="ft-x"></i>{{__('admin/product.return')}}
+                                                    <i class="ft-x"></i> تراجع
                                                 </button>
                                                 <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> {{__('admin/product.next')}}
+                                                    <i class="la la-check-square-o"></i> تحديث
                                                 </button>
-                                            </div>
                                             </div>
                                         </form>
 
@@ -160,15 +90,59 @@
 @stop
 
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
 
     <script>
-            $(document).on('change', '#manageStock', function() {
-                    if( $(this).val() == 1 ) {
-                        $('#qtyDiv').show();
-                    }else {
-                        $('#qtyDiv').hide();
-                    }
-            });
+        var uploadedDocumentMap = {}
+        Dropzone.options.dpzMultipleFiles = {
+            paramName: "dzfile", // The name that will be used to transfer the file
+            //autoProcessQueue: false,
+            maxFilesize: 5, // MB
+            clickable: true,
+            addRemoveLinks: true,
+            acceptedFiles: 'image/*',
+            dictFallbackMessage: " المتصفح الخاص بكم لا يدعم خاصيه تعدد الصوره والسحب والافلات ",
+            dictInvalidFileType: "لايمكنك رفع هذا النوع من الملفات ",
+            dictCancelUpload: "الغاء الرفع ",
+            dictCancelUploadConfirmation: " هل انت متاكد من الغاء رفع الملفات ؟ ",
+            dictRemoveFile: "حذف الصوره",
+            dictMaxFilesExceeded: "لايمكنك رفع عدد اكثر من هضا ",
+            headers: {
+                'X-CSRF-TOKEN':
+                    "{{ csrf_token() }}"
+            }
+            ,
+            url: "{{ route('admin.products.images.store') }}", // Set the url
+            success:
+                function (file, response) {
+                    $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
+                    uploadedDocumentMap[file.name] = response.name
+                }
+            ,
+            removedfile: function (file) {
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedDocumentMap[file.name]
+                }
+                $('form').find('input[name="document[]"][value="' + name + '"]').remove()
+            }
+            ,
+            // previewsContainer: "#dpz-btn-select-files", // Define the container to display the previews
+            init: function () {
+                    @if(isset($event) && $event->document)
+                var files =
+                {!! json_encode($event->document) !!}
+                    for (var i in files) {
+                    var file = files[i]
+                    this.options.addedfile.call(this, file)
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="document[]" value="' + file.file_name + '">')
+                }
+                @endif
+            }
+        }
     </script>
 @stop
-© 2020 GitHub, Inc.
