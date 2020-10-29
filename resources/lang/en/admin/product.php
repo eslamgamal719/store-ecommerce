@@ -74,6 +74,15 @@ return [
     'In Stock is required' => 'In Stock Is required',
 
 
+    'attributes' => 'Attributes',
+    'add new attribute' => 'Add new attribute',
+    'attribute data' => 'Attribute data',
+    'all attributes' => 'All attributes',
+    'name exists before' => 'This name is already exists before',
+
+    'qty required when manage stock' => 'The quantity must have value when manage_stock equal 1',
+
+###############################################################################################
 
     'ar name required' => 'Name in Arabic is required',
     'en name required' => 'Name in English is required',

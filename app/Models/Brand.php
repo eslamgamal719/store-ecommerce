@@ -22,6 +22,8 @@ class Brand extends Model
     ];
 
 
+
+
     public function getActive() {
         return $this->is_active == 0 ? __('admin/brands.inactive') : __('admin/brands.active');
     }

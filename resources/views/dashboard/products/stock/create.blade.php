@@ -75,7 +75,7 @@
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/product.track storage')}}
                                                             </label>
-                                                            <select name="manage_stock" class="select2 form-control" id="manageStock">
+                                                            <select name="manage_stock" class="form-control" id="manageStock">
                                                                 <optgroup label="من فضلك أختر النوع ">
                                                                     <option value="1"> {{__('admin/product.track')}}</option>
                                                                     <option value="0" selected>{{__('admin/product.not track')}} </option>
@@ -88,10 +88,9 @@
                                                     </div>
                                                 </div>
 
+
                                                 <div class="row">
                                                     <!-- QTY  -->
-
-
 
                                                     <div class="col-md-6">
                                                         <div class="form-group">

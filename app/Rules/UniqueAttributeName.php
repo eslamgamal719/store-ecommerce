@@ -2,9 +2,10 @@
 
 namespace App\Rules;
 
+use App\Models\AttributeTranslation;
 use Illuminate\Contracts\Validation\Rule;
 
-class ProductQty implements Rule
+class UniqueAttributeName implements Rule
 {
     /**
      * Create a new rule instance.
@@ -12,10 +13,13 @@ class ProductQty implements Rule
      * @return void
      */
 
-    private $manage_stock;
-    public function __construct($manage_stock)
+    private $attributeName;
+    private $attributeId;
+
+    public function __construct($attributeName, $attributeId)
     {
-        $this->manage_stock = $manage_stock;
+        $this->attributeName = $attributeName;
+        $this->attributeId = $attributeId;
     }
 
     /**
@@ -27,7 +31,16 @@ class ProductQty implements Rule
      */
     public function passes($attribute, $value)
     {
-        if($this->manage_stock == 1 && $value == null) {
+        if($this->attributeId) { //for edit form
+
+            $attribute = AttributeTranslation::where('name', $value)->where('attribute_id', '!=', $this->attributeId)->first();
+
+        }else {  // for create form
+
+            $attribute = AttributeTranslation::where('name', $value)->first();
+        }
+
+        if($attribute) {
             return false;    //that is means the validation is failed
         }else {
             return true;     //that is means the validation is success
@@ -41,6 +54,6 @@ class ProductQty implements Rule
      */
     public function message()
     {
-        return __('admin/product.qty required when manage stock');
+        return __('admin/product.name exists before');
     }
 }

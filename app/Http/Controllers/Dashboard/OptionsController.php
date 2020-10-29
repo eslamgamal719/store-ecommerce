@@ -17,7 +17,7 @@ use App\Http\Requests\Dashboard\ProductStockRequest;
 use App\Http\Requests\Dashboard\GeneralProductRequest;
 
 
-class ProductsController extends Controller
+class OptionsController extends Controller
 {
     use categories;
 

@@ -72,6 +72,12 @@ Route::group(
 
         });
 
+        //Attribute Routes
+        Route::resource('attributes', 'AttributesController')->except('show');
+
+        //Options Routes
+        Route::resource('options', 'OptionsController')->except('show');
+
     });
 
 

@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="content-body">
+          <div class="content-body">
                 <!-- Basic form layout section start -->
                 <section id="basic-form-layouts">
                     <div class="row match-height">
@@ -54,6 +54,7 @@
                                             <div class="form-body">
 
                                                 <h4 class="form-section"><i class="ft-home"></i> صور المنتج </h4>
+
                                                 <div class="form-group">
                                                     <div id="dpz-multiple-files" class="dropzone dropzone-area">
                                                         <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
@@ -61,8 +62,9 @@
                                                     <br><br>
                                                 </div>
 
-
                                             </div>
+
+
 
 
                                             <div class="form-actions">
@@ -84,8 +86,8 @@
                 </section>
                 <!-- // Basic form layout section end -->
             </div>
-        </div>
-    </div>
+
+
 
 @stop
 
@@ -93,6 +95,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.0.1/dropzone.js"></script>
 
     <script>
+
         var uploadedDocumentMap = {}
         Dropzone.options.dpzMultipleFiles = {
             paramName: "dzfile", // The name that will be used to transfer the file
@@ -111,6 +114,8 @@
                 'X-CSRF-TOKEN':
                     "{{ csrf_token() }}"
             }
+
+
             ,
             url: "{{ route('admin.products.images.store') }}", // Set the url
             success:
@@ -118,6 +123,7 @@
                     $('form').append('<input type="hidden" name="document[]" value="' + response.name + '">')
                     uploadedDocumentMap[file.name] = response.name
                 }
+
             ,
             removedfile: function (file) {
                 file.previewElement.remove()
@@ -144,5 +150,11 @@
                 @endif
             }
         }
+
+
+
+
+
+
     </script>
 @stop

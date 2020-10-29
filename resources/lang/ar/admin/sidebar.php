@@ -16,4 +16,8 @@ return [
     'add new tag'       => 'اضافه علامه جديده',
     'products'          => 'المنتجات',
     'add new product'   => 'اضافه منتج جديد',
+    'attributes'        => 'خصائص المنتجات',
+    'add new attribute' => 'اضافه خاصيه جديده',
+    'options'           => 'قيم الخصائص',
+    'add new option'    => 'اضافه خاصيه جديده',
 ];

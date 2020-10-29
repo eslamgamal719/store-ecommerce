@@ -87,7 +87,7 @@
                                                         <div class="form-group">
                                                             <label for="projectinput1"> {{__('admin/product.price type')}}
                                                             </label>
-                                                            <select name="special_price_type" class="select2 form-control" multiple>
+                                                            <select name="special_price_type" class=" form-control" >
                                                                 <optgroup label="من فضلك اختر النوع">
                                                                     <option value="percent">percent</option>
                                                                     <option value="fixed">fixed</option>
@@ -122,6 +122,7 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+
 
                                                     <div class="col-md-6">
                                                         <div class="form-group mt-1">

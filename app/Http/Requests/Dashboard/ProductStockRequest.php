@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Dashboard;
 
-use App\Http\Enumerations\CategoryType;
 use App\Rules\ProductQty;
+use App\Http\Enumerations\CategoryType;
 use Illuminate\Foundation\Http\FormRequest;
+
 
 class ProductStockRequest extends FormRequest
 {

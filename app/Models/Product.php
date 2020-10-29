@@ -49,7 +49,8 @@ class Product extends Model
         'deleted_at'
     ];
 
-    #################################################################################
+
+   ################################## Relations ###########################################
 
     public function brand() {
         return $this->belongsTo(Brand::class)->withDefault();
@@ -64,6 +65,13 @@ class Product extends Model
         return $this->belongsToMany(Tag::class, 'product_tags');
     }
 
+
+    public function options() {
+        return $this->hasMany(Option::class, 'product_id');
+    }
+
+
+   ################################### Methods ##########################################
 
     public function getActive() {
         return $this->is_active == 0 ? __('admin/product.inactive') : __('admin/product.active');

@@ -89,6 +89,42 @@
 
 
 
+            <li class="nav-item"><a href=""><i class="la la-cart-arrow-down"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.attributes')}}</span>
+                    <span
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{App\Models\Attribute::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{'admin.attributes' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.attributes.index')}}"
+                                                                                             data-i18n="nav.dash.ecommerce">{{__('admin/sidebar.show all')}} </a>
+                    </li>
+                    <li><a class="menu-item" href="{{route('admin.attributes.create')}}" data-i18n="nav.dash.crypto">{{__('admin/sidebar.add new attribute')}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+            <li class="nav-item"><a href=""><i class="la la-cart-arrow-down"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{__('admin/sidebar.options')}}</span>
+                    <span
+                        class="badge badge badge-warning  badge-pill float-right mr-2">{{App\Models\Option::count()}}</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{'admin.options' == request()->path() ? 'active' : ''}}"><a class="menu-item" href="{{route('admin.options.index')}}"
+                                                                                               data-i18n="nav.dash.ecommerce">{{__('admin/sidebar.show all')}} </a>
+                    </li>
+                    <li><a class="menu-item" href="{{route('admin.options.create')}}" data-i18n="nav.dash.crypto">{{__('admin/sidebar.add new option')}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+
+
+
             <li class=" nav-item"><a href="#"><span class="menu-title"
                                                       data-i18n="nav.templates.main"><i class="la la-cogs"></i>{{__('admin/sidebar.settings')}}</span></a>
                 <ul class="menu-content">

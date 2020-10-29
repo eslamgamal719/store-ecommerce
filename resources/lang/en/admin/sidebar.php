@@ -17,5 +17,10 @@ return [
     'add new tag'       => 'Add New Tag',
     'products'          => 'Products',
     'add new product'   => 'Add New Product',
+    'attributes'        => 'Attributes',
+    'add new attribute' => 'Add New Attribute',
+    'options'           => 'Options',
+    'add new option'    => 'Add New Option',
+
 
 ];
