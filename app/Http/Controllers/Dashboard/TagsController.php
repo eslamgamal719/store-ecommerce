@@ -2,94 +2,90 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use DB;
+use App\Models\Tag;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\TagsRequest;
-use App\Models\Tag;
-use App\Traits\categories;
-use Illuminate\Http\Request;
-use DB;
+
 
 class TagsController extends Controller
 {
 
-    use categories;
-
     public function index()
     {
-        $tags = Tag::orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        $tags = Tag::orderBy('id', 'DESC')
+            ->paginate(PAGINATION_COUNT);
+
         return view('dashboard.tags.index', compact('tags'));
-    }
+
+    }//end of index
 
 
     public function create()
     {
         return view('dashboard.tags.create');
-    }
+
+    }//end of create
 
 
     public function store(TagsRequest $request)
     {
         try {
-
-            DB::beginTransaction();
             $tag = Tag::create($request->except('token'));
-            $tag->save();
-            DB::commit();
 
-            return $this->success('admin.tags.index', __('admin/tags.add successfully'));
+            return success('admin.tags.index', __('admin/tags.add successfully'));
+
         } catch (\Exception $ex) {
-            return $this->error('admin.tags.index', __('admin/tags.add fail'));
+
+            return error('admin.tags.index', __('admin/tags.add fail'));
+
         }
-    }
+
+    }//end of store
 
 
-    public function edit($id)
+
+    public function edit(Tag $tag)
     {
-        $tag = Tag::find($id);
-        if (!$tag)
-            $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
-
         return view('dashboard.tags.edit', compact('tag'));
-    }
+
+    }//end of edit
 
 
-    public function update($id, TagsRequest $request)
+
+    public function update(Tag $tag, TagsRequest $request)
     {
         try {
-            $tag = Tag::find($id);
-            if (!$tag)
-                $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
-
-            DB::beginTransaction();
 
             $tag->update($request->except('_token'));
-            $tag->save();
-            DB::commit();
 
-            return $this->success('admin.tags.index', __('admin/tags.updated successfully'));
+            return success('admin.tags.index', __('admin/tags.updated successfully'));
+
         } catch (\Exception $ex) {
-            return $this->error('admin.tags.index', __('admin/tags.add fail'));
+
+            return error('admin.tags.index', __('admin/tags.add fail'));
+
         }
-    }
+
+    }//end of update
 
 
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
         try {
-            $tag = Tag::find($id);
-            if (!$tag)
-                $this->notFoundMsg('admin.tags.index', __('admin/tags.tag not found'));
-
             $tag->translations()->delete();
             $tag->delete();
 
-            return $this->success('admin.tags.index', __('admin/tags.deleted successfully'));
+            return success('admin.tags.index', __('admin/tags.deleted successfully'));
 
         } catch (\Exception $ex) {
-            return $this->error('admin.tags.index', __('admin/tags.fail'));
+
+            return error('admin.tags.index', __('admin/tags.fail'));
         }
-    }
+
+    }//end of destroy
 
 
 
-}
+}//end of controller

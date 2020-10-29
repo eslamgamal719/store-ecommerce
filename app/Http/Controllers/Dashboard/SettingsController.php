@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\ShippingRequest;
+use DB;
 use App\Models\Setting;
 use Illuminate\Http\Request;
-use DB;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\ShippingRequest;
+
 
 class SettingsController extends Controller
 {
@@ -25,11 +26,14 @@ class SettingsController extends Controller
                 $shippingMethod = Setting::where('key', 'free_shipping_label')->first();
 
             return view('dashboard.settings.shippings.edit', compact('shippingMethod'));
-        }
+
+        }//end of edit shipping
+
 
 
         public function updateShippingMethod(ShippingRequest $request, $id) {
             try {
+
                 $shipping_method = Setting::find($id);
 
                 $shipping_method->update($request->all());
@@ -40,5 +44,8 @@ class SettingsController extends Controller
 
                 return redirect()->back()->with(['error' =>  __('admin/settings.edit error')]);
             }
-        }
-}
+
+        }//end of update shipping
+
+
+}//end of controller

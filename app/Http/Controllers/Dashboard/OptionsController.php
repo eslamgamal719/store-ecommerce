@@ -8,7 +8,6 @@ use App\Models\Image;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use App\Traits\categories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProductImageRequest;
@@ -19,7 +18,6 @@ use App\Http\Requests\Dashboard\GeneralProductRequest;
 
 class OptionsController extends Controller
 {
-    use categories;
 
     public function index()
     {

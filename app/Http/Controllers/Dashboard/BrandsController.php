@@ -2,39 +2,39 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\BrandsRequest;
-use App\Models\Brand;
-use App\Traits\categories;
-use Illuminate\Http\Request;
 use DB;
 use Storage;
+use App\Models\Brand;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\BrandsRequest;
+
 
 class BrandsController extends Controller
 {
-    use categories;
 
     public function index()
     {
-        $brands = Brand::orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        $brands = Brand::orderBy('id', 'DESC')
+            ->paginate(PAGINATION_COUNT);
+
         return view('dashboard.brands.index', compact('brands'));
-    }
+
+    }//end of index
 
 
     public function create()
     {
         return view('dashboard.brands.create');
-    }
+
+    }//end of create
 
 
     public function store(BrandsRequest $request)
     {
         try {
-            if (!$request->has('is_active'))
-                $request->request->add(['is_active' => 0]);
-            else
-                $request->request->add(['is_active' => 1]);
 
+            isActive($request);
 
             DB::beginTransaction();
 
@@ -42,43 +42,38 @@ class BrandsController extends Controller
 
             $fileName = '';
             if ($request->has('photo')){
+
                 $fileName = uploadImage('brands', $request->photo);
+
                 $brand->photo = $fileName;
+
                 $brand->save();
             }
 
             DB::commit();
 
-            return $this->success('admin.brands.index', __('admin/brands.add successfully'));
+            return success('admin.brands.index', __('admin/brands.add successfully'));
+
         } catch (\Exception $ex) {
-            return $this->error('admin.brands.index', __('admin/brands.add fail'));
+
+            return error('admin.brands.index', __('admin/brands.add fail'));
+
         }
-    }
+
+    } //end of store
 
 
-    public function edit($id)
+    public function edit(Brand $brand)
     {
-        $brand = Brand::find($id);
-        if (!$brand)
-            $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
-
         return view('dashboard.brands.edit', compact('brand'));
-    }
+
+    }//end of edit
 
 
-    public function update($id, BrandsRequest $request)
+    public function update(Brand $brand, BrandsRequest $request)
     {
         try {
-            $brand = Brand::find($id);
-            if (!$brand)
-                $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
-
-
-            if (!$request->has('is_active'))
-                $request->request->add(['is_active' => 0]);
-            else
-                $request->request->add(['is_active' => 1]);
-
+            isActive($request);
 
             DB::beginTransaction();
 
@@ -92,40 +87,47 @@ class BrandsController extends Controller
                 }
 
                 $fileName = uploadImage('brands', $request->photo);
+
                 $brand->photo = $fileName;
+
                 $brand->save();
             }
 
             DB::commit();
 
-            return $this->success('admin.brands.index', __('admin/brands.updated successfully'));
+            return success('admin.brands.index', __('admin/brands.updated successfully'));
+
         } catch (\Exception $ex) {
+
             DB::rollback();
-            return $this->error('admin.brands.index', __('admin/brands.fail'));
+            return error('admin.brands.index', __('admin/brands.fail'));
+
         }
-    }
+    } //end of update
 
 
-    public function destroy($id)
+    public function destroy(Brand $brand)
     {
         try {
-            $brand = Brand::find($id);
-            if (!$brand)
-                $this->notFoundMsg('admin.brands.index', __('admin/brands.brand not found'));
 
             $brand->translations()->delete();
 
             if($brand->photo != 'default.jpeg'){
+
                 Storage::disk('brands')->delete($brand->photo);
+
             }
 
             $brand->delete();
 
-            return $this->success('admin.brands.index', __('admin/brands.deleted successfully'));
+            return success('admin.brands.index', __('admin/brands.deleted successfully'));
 
         } catch (\Exception $ex) {
-            return $this->error('admin.brands.index', __('admin/brands.fail'));
-        }
-    }
 
-}
+            return error('admin.brands.index', __('admin/brands.fail'));
+        }
+
+    } //end of destroy
+
+
+} //end of controller

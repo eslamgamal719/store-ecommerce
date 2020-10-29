@@ -2,57 +2,53 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use DB;
+use Storage;
+use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Enumerations\CategoryType;
 use App\Http\Requests\Dashboard\CategoryRequest;
-use App\Models\Category;
-use App\Traits\categories;
-use Illuminate\Http\Request;
-use DB;
-use Storage;
+
 
 class CategoriesController extends Controller
 {
-    use categories;
 
     public function index()
     {
-        $categories = Category::with('_parent')->orderBy('id', 'DESC')->paginate(PAGINATION_COUNT);
+        $categories = Category::with('_parent')
+            ->orderBy('id', 'DESC')
+            ->paginate(PAGINATION_COUNT);
+
         return view('dashboard.categories.index', compact('categories'));
-    }
+
+    }//end of index
 
 
 
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = $this->getElementById($id);
-        if (!$category)
-            return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
+        $allCategories = Category::parent()
+            ->select('id', 'parent_id')
+            ->get();
 
-        $allCategories = Category::parent()->select('id', 'parent_id')->get();
         return view('dashboard.categories.edit', compact('category', 'allCategories'));
-    }
+
+    }//end of create
 
 
-    public function update(CategoryRequest $request, $id)
+
+    public function update(CategoryRequest $request, Category $category)
     {
         try {
 
-            $category = $this->getElementById($id);
-            if (!$category)
-                return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
-
-            if (!$request->has('is_active'))
-                $request->request->add(['is_active' => 0]);
-            else
-                $request->request->add(['is_active' => 1]);
+            isActive($request); // add 1 for active and 0 for inactive
 
             DB::beginTransaction();
             $category->update($request->except('photo'));
 
-            if($request->has('photo')) {
-
-                if($category->photo != 'default.jpeg') {
+            if ($request->has('photo')) {
+                if ($category->photo != 'default.jpeg') {
                     Storage::disk('categories')->delete($category->photo);
                 }
 
@@ -61,31 +57,36 @@ class CategoriesController extends Controller
                 $category->save();
             }
 
-            return $this->success('admin.categories.index', __('admin/category.updated successfully'));
+            DB::commit();
+            return success('admin.categories.index', __('admin/category.updated successfully'));
 
         } catch (\Exception $ex) {
 
             DB::rollback();
-            return $this->error('admin.categories.index', __('admin/category.there is error'));
+            return error('admin.categories.index', __('admin/category.there is error'));
         }
-    }
+
+    }//end of update
+
 
 
     public function create()
     {
-        $categories = Category::parent()->select('id', 'parent_id')->get();
+        $categories = Category::parent()
+            ->select('id', 'parent_id')
+            ->get();
+
         return view('dashboard.categories.create', compact('categories'));
-    }
+
+    }//end of create
+
 
 
     public function store(CategoryRequest $request)
     {
         try {
-            if (!$request->has('is_active'))
-                $request->request->add(['is_active' => 0]);
-            else
-                $request->request->add(['is_active' => 1]);
 
+            isActive($request);
 
             if ($request->type == CategoryType::MainCategory) {
                 $request->request->add(['parent_id' => null]);
@@ -95,7 +96,7 @@ class CategoriesController extends Controller
 
             $category = Category::create($request->except('_token', 'photo'));
 
-            if($request->has('photo')) {
+            if ($request->has('photo')) {
 
                 $fileName = uploadImage('categories', $request->photo);
                 $category->photo = $fileName;
@@ -105,25 +106,27 @@ class CategoriesController extends Controller
 
             DB::commit();
 
-            return $this->success('admin.categories.index', __('admin/category.added successfully'));
+            return success('admin.categories.index', __('admin/category.added successfully'));
 
         } catch (\Exception $ex) {
             DB::rollback();
-            return $this->error('admin.categories.index', __('admin/category.there is error'));
+            return error('admin.categories.index', __('admin/category.there is error'));
         }
-    }
 
-    public function destroy($id)
+    }//end of store
+
+
+
+    public function destroy(Category $category)
     {
         try {
-            $category = $this->getElementById($id);
-            if (!$category)
-                return $this->notFoundMsg('admin.categories.index', __('admin/category.category not found'));
 
             DB::beginTransaction();
 
-            if($category->photo != 'default.jpeg') {
+            if ($category->photo != 'default.jpeg') {
+
                 Storage::disk('categories')->delete($category->photo);
+
             }
 
             $category->translations()->delete();
@@ -137,14 +140,14 @@ class CategoriesController extends Controller
 
             DB::commit();
 
-            return $this->success('admin.categories.index', __('admin/category.deleted successfully'));
+            return success('admin.categories.index', __('admin/category.deleted successfully'));
 
         } catch (\Exception $ex) {
             DB::rollback();
-            return $this->error('admin.categories.index', __('admin/category.there is error'));
+            return error('admin.categories.index', __('admin/category.there is error'));
         }
 
-    }
+    }//end of destroy
 
 
-}
+}//end of controller

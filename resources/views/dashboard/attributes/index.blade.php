@@ -46,8 +46,8 @@
                                 @include('dashboard.includes.alerts.success')
                                 @include('dashboard.includes.alerts.errors')
 
-                                <div class="card-content collapse show">
-                                    <div class="card-body card-dashboard">
+                                <div class="">
+                                    <div class="">
                                         <table
                                             class="table display nowrap table-striped table-bordered scroll-horizontal">
                                             <thead class="">
