@@ -48,6 +48,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/cryptocoins/cryptocoins.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/extensions/datedropper.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/extensions/timedropper.min.css')}}">
+
+
+    <!-- Dropzone -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/vendors/css/file-uploaders/dropzone.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/plugins/file-uploaders/dropzone.css')}}">
+
     <!-- END Page Level CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/admin/css-rtl/style-rtl.css')}}">
@@ -55,6 +61,8 @@
     @notify_css
     @yield('style')
     <link href="https://fonts.googleapis.com/css?family=Cairo&display=swap" rel="stylesheet">
+
+    <script src="{{asset('assets/admin/vendors/js/editors/ckeditor/ckeditor.js')}}" type="text/javascript"></script>
     <style>
         body {
             font-family: 'Cairo', sans-serif;
@@ -107,6 +115,8 @@
 <script src="{{asset('assets/admin/vendors/js/extensions/datedropper.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/vendors/js/extensions/timedropper.min.js')}}" type="text/javascript"></script>
 
+
+
 <script src="{{asset('assets/admin/vendors/js/forms/icheck/icheck.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('assets/admin/js/scripts/pages/chat-application.js')}}" type="text/javascript"></script>
 <!-- END PAGE VENDOR JS-->
@@ -127,6 +137,14 @@
 <script src="{{asset('assets/admin/js/scripts/forms/checkbox-radio.js')}}" type="text/javascript"></script>
 
 <script src="{{asset('assets/admin/js/scripts/modal/components-modal.js')}}" type="text/javascript"></script>
+
+<!-- Dropzone -->
+<script src="{{asset('assets/admin/vendors/js/extensions/dropzone.min.js')}}" type="text/javascript"></script>
+
+
+<script src="{{asset('assets/admin/js/custom/image_preview.js')}}" type="text/javascript"></script>
+
+
 
 <script>
     $('#meridians1').timeDropper({
@@ -176,6 +194,11 @@
     $('#meridians14').timeDropper({
         meridians: true,setCurrentTime: false
     });
+
+
+
+    CKEDITOR.config.language =  "{{ app()->getLocale() }}";
+
 </script>
 @yield('script')
 </body>

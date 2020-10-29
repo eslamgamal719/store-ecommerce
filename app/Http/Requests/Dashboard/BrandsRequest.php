@@ -23,17 +23,24 @@ class BrandsRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'  => 'required',
-            'photo' => 'required_without:id|mimes:jpg,jpeg,png'
+        $rules = [
+            'photo' => 'mimes:jpg,jpeg,png'
         ];
+
+        foreach (config('translatable.locales') as $locale) {
+            $rules += [$locale . '.name' => 'required'];
+        }
+
+        return $rules;
+
     }
 
 
     public function messages()
     {
         return [
-            'name.required'  => __('admin/brands.name required'),
+            'ar.name.required'  => __('admin/brands.ar name required'),
+            'en.name.required'  => __('admin/brands.en name required'),
             'photo.required' => __('admin/brands.photo required'),
             'photo.mimes'    => __('admin/brands.photo not valid')
         ];

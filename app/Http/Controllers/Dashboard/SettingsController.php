@@ -32,17 +32,13 @@ class SettingsController extends Controller
             try {
                 $shipping_method = Setting::find($id);
 
-                DB::beginTransaction();
-                $shipping_method->update(['plain_value' => $request->plain_value]);
-                $shipping_method->value = $request->value;
-                $shipping_method->save();
-                DB::commit();
+                $shipping_method->update($request->all());
 
-             return redirect()->back()->with(['success'  => __('admin/edit.edit success')]);
+             return redirect()->back()->with(['success'  => __('admin/settings.edit success')]);
 
             }catch (\Exception $ex) {
-                return redirect()->back()->with(['error' =>  __('admin/edit.edit error')]);
-                DB::rollback();
+
+                return redirect()->back()->with(['error' =>  __('admin/settings.edit error')]);
             }
         }
 }

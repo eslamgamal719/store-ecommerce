@@ -36,7 +36,7 @@
                 </span>
 
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('edit.profile')}}"><i
+                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{route('admin.edit.profile')}}"><i
                                     class="ft-user"></i>{{__('admin/header.edit profile')}}</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{route('admin.logout')}}"><i

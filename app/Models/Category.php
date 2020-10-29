@@ -23,6 +23,8 @@ class Category extends Model
         'is_active' => 'boolean'
     ];
 
+    protected $appends = ['photo_url'];
+
     #################################################################################
     public function scopeParent($query) {
         return $query->whereNull('parent_id');
@@ -31,6 +33,11 @@ class Category extends Model
     public function scopeChild($query) {
         return $query->whereNotNull('parent_id');
     }
+
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
+    }
+
 
 
     public function getActive() {
@@ -47,10 +54,12 @@ class Category extends Model
     }
 
 
-    public function getPhotoAttribute($val)
+    public function getPhotoUrlAttribute()
     {
-        return ($val != null) ? asset('assets/images/categories/' . $val) : '';
+        return asset('assets/images/categories/'.$this->photo);
     }
 
-
+    /*public function getPhotoAttribute($val) {
+        return ($val != null) ? asset('assets/images/categories/' . $val) : '';
+    }*/
 }

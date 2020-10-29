@@ -13,18 +13,31 @@ class Brand extends Model
 
     protected $translatedAttributes = ['name'];
 
-    protected $fillable = ['is_active'];
+    protected $guarded = [];
+
+    protected $appends = ['photo_url'];
 
     protected $casts = [
         'is_active' => 'boolean'
     ];
 
 
+
+
     public function getActive() {
         return $this->is_active == 0 ? __('admin/brands.inactive') : __('admin/brands.active');
     }
 
-    public function getPhotoAttribute($val) {
-        return ($val !== null) ? asset('assets/images/brands/' . $val) : '';
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
     }
+
+
+    public function getPhotoUrlAttribute() {
+        return  asset('assets/images/brands/'. $this->photo);
+    }
+
+  /*  public function getPhotoAttribute($val) {
+        return ($val !== null) ? asset('assets/images/brands/' . $val) : '';
+    }*/
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Dashboard;
 
+use App\Http\Enumerations\CategoryType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CategoryRequest extends FormRequest
@@ -23,19 +24,25 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name'    => 'required',
+        $rules = [
             'slug'  => 'required|unique:categories,slug,' . $this->id,
-            'photo' => 'required_without:id|mimes:jpg,png,jpeg',
-            'type'  => 'required|in:1,2'
+            'photo' => 'mimes:jpg,png,jpeg',
+            'type'  => 'required|in:'. CategoryType::MainCategory . "," . CategoryType::SubCategory,
         ];
+
+        foreach(config('translatable.locales') as $locale) {
+            $rules += [$locale . '.name' => 'required'];
+        }
+
+        return $rules;
     }
 
 
     public function messages()
     {
         return [
-            'name.required'     => __('admin/category.name required'),
+            'ar.name.required'     => __('admin/category.ar name required'),
+            'en.name.required'     => __('admin/category.en name required'),
             'slug.required'    => __('admin/category.slug required'),
             'slug.unique'       => __('admin/category.slug unique'),
             'photo.required'   => __('admin/category.photo required'),

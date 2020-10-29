@@ -71,8 +71,14 @@
                                                                    class="btn btn-outline-primary btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/tags.edit')}}</a>
 
 
-                                                                <a href="{{route('admin.tags.delete',$tag -> id)}}"
-                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/tags.delete')}}</a>
+                                                              {{--  <a href="{{route('admin.tags.destroy',$tag -> id)}}"
+                                                                   class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1">{{__('admin/tags.delete')}}</a> --}}
+
+                                                                <form action="{{route('admin.tags.destroy', $tag->id)}}" method="post" style="display: inline-block">
+                                                                    @csrf
+                                                                    {{method_field('delete') }}
+                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"><i class="fa fa-trash"></i>{{__('admin/tags.delete')}}</button>
+                                                                </form>
 
                                                             </div>
                                                         </td>

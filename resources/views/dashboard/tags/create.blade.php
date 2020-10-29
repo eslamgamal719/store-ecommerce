@@ -15,7 +15,8 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">{{__('admin/tags.main')}} </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{route('admin.tags')}}"> {{__('admin/tags.tags')}} </a>
+                                <li class="breadcrumb-item"><a
+                                        href="{{route('admin.tags.index')}}"> {{__('admin/tags.tags')}} </a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                 </li>
@@ -31,7 +32,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form"> {{__('admin/tags.add new tag')}} </h4>
+                                    <h4 class="card-title"
+                                        id="basic-layout-form"> {{__('admin/tags.add new tag')}} </h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -55,29 +57,33 @@
                                             @csrf
 
 
-
-
                                             <div class="form-body">
-                                                <h4 class="form-section"><i class="ft-home"></i> {{__('admin/tags.tag data')}} </h4>
+                                                <h4 class="form-section"><i
+                                                        class="ft-home"></i> {{__('admin/tags.tag data')}} </h4>
+
+                                                <div class="row">
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="projectinput1">{{__('admin/tags.' . $locale . '.name')}}
+                                                                </label>
+                                                                <input type="text" id="name"
+                                                                       class="form-control"
+                                                                       placeholder="  "
+                                                                       value="{{old($locale . '.name')}}"
+                                                                       name="{{$locale}}[name]">
+
+                                                                @error($locale .".name")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
 
                                                 <div class="row">
 
                                                     <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="projectinput1">{{__('admin/tags.name')}}
-                                                            </label>
-                                                            <input type="text" id="name"
-                                                                   class="form-control"
-                                                                   placeholder="  "
-                                                                   value="{{old('name')}}"
-                                                                   name="name">
-                                                            @error("name")
-                                                            <span class="text-danger">{{$message}}</span>
-                                                            @enderror
-                                                        </div>
-                                                    </div>
-
-                                                   <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="projectinput1">{{__('admin/tags.slug')}}
                                                             </label>
@@ -93,15 +99,17 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                            <div class="form-actions">
-                                                <button type="button" class="btn btn-warning mr-1"
-                                                        onclick="history.back();">
-                                                    <i class="ft-x"></i> {{__('admin/tags.return')}}
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">
-                                                    <i class="la la-check-square-o"></i> {{__('admin/tags.create')}}
-                                                </button>
+                                                <div class="form-actions">
+                                                    <button type="button" class="btn btn-warning mr-1"
+                                                            onclick="history.back();">
+                                                        <i class="ft-x"></i> {{__('admin/tags.return')}}
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <i class="la la-check-square-o"></i> {{__('admin/tags.create')}}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </form>
 

@@ -21,14 +21,26 @@ return [
     'brand data' => 'Brand Data',
     'create' => 'Create',
     'return' => 'Return',
-    'name required' => 'Brand Name Is Required',
+
     'photo required' => 'Brand Photo Is Required',
     'photo not valid' => 'This Photo Extension Is Not Valid',
-    'add successfully' => 'Added Is Successfully',
+    'add successfully' => 'Added Successfully',
     'updated successfully' => 'Updated Successfully',
     'deleted successfully' => 'Deleted Successfully',
-    'fail' => 'There Is an error please Try Again'
+    'fail' => 'There Is an error please Try Again',
+    'edit brand' => 'Edit Brand',
 
+    'ar name required' => 'Brand Name In Arabic Is Required',
+    'en name required' => 'Brand Name In English Is Required',
+
+
+    'ar' => [
+    'name' => 'Name in Arabic'
+        ],
+
+    'en' => [
+    'name' => 'Name in English'
+        ],
 
 
 ];

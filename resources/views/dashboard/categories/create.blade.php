@@ -17,7 +17,7 @@
                                         href="{{route('admin.dashboard')}}">{{__('admin/category.main')}} </a>
                                 </li>
                                 <li class="breadcrumb-item"><a
-                                        href="{{route('admin.categories', 'main')}}"> {{__('admin/category.categories')}} </a>
+                                        href="{{route('admin.categories.index', 'main')}}"> {{__('admin/category.categories')}} </a>
                                 </li>
                                 <li class="breadcrumb-item active">
                                 </li>
@@ -33,7 +33,8 @@
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="basic-layout-form">{{__('admin/category.add new category')}}</h4>
+                                    <h4 class="card-title"
+                                        id="basic-layout-form">{{__('admin/category.add new category')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                             class="la la-ellipsis-v font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -57,9 +58,18 @@
 
 
                                             <div class="form-group">
+                                                <div class="text-center">
+                                                    <img
+                                                        src="{{asset('assets/images/categories/default.jpeg')}}"
+                                                        class="rounded-circle  height-150 image-preview" alt="صورة القسم  ">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="form-group">
                                                 <label> {{__('admin/category.image')}} </label>
                                                 <label id="projectinput7" class="file center-block">
-                                                    <input type="file" id="file" name="photo">
+                                                    <input type="file" id="file" name="photo" class="image">
                                                     <span class="file-custom"></span>
                                                 </label>
                                                 @error('photo')
@@ -68,102 +78,114 @@
                                             </div>
 
 
-                                            <div class="form-body">
+                                            <div class="form-group">
+                                                <img src="{{asset('assets/images/brands/default.jpeg')}}" style="width: 70px" class="img-thumbnail image-preview">
+                                            </div>
 
+
+
+                                            <div class="form-body">
                                                 <h4 class="form-section"><i
                                                         class="ft-home"></i> {{__('admin/category.category data')}}
                                                 </h4>
 
 
+                                                <div class="row">
+                                                    @foreach(config('translatable.locales') as $locale)
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label
+                                                                    for="projectinput1">{{__('admin/category.' . $locale . '.name')}}
+                                                                </label>
+
+                                                                <input type="text" id="name"
+                                                                       class="form-control"
+                                                                       placeholder="  "
+                                                                       value="{{old($locale . '.name')}}"
+                                                                       name="{{$locale}}[name]">
+
+                                                                @error($locale . ".name")
+                                                                <span class="text-danger">{{$message}}</span>
+                                                                @enderror
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
 
 
-                                              <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="projectinput1">{{__('admin/category.name')}}
-                                                        </label>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="projectinput1">{{__('admin/category.slug')}}
+                                                            </label>
 
-                                                        <input type="text" id="name"
-                                                               class="form-control"
-                                                               placeholder="  "
-                                                               value="{{old('name')}}"
-                                                               name="name">
+                                                            <input type="text" id="name"
+                                                                   class="form-control"
+                                                                   placeholder="  "
+                                                                   value="{{old('slug')}}"
+                                                                   name="slug">
 
-                                                        @error("name")
-                                                        <span class="text-danger">{{$message}}</span>
-                                                        @enderror
+                                                            @error("slug")
+                                                            <span class="text-danger">{{$message}}</span>
+                                                            @enderror
+                                                        </div>
                                                     </div>
                                                 </div>
 
 
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label for="projectinput1">{{__('admin/category.slug')}}
-                                                        </label>
-
-                                                        <input type="text" id="name"
-                                                               class="form-control"
-                                                               placeholder="  "
-                                                               value="{{old('slug')}}"
-                                                               name="slug">
-
-                                                        @error("slug")
-                                                        <span class="text-danger">{{$message}}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-
-
-                                        {{--          <div class="row hidden" id="cats-list">
-                                                      <div class="col-md-12">
-                                                          <div class="form-group">
-                                                              <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
-                                                              <select name="parent_id" class="select2 form-control">
-                                                                  <optgroup label="{{__('admin/category.choose main category')}}">
-                                                                      @if( $allCategories && $allCategories -> count() > 0)
-                                                                          @foreach($allCategories as $category)
-                                                                              @if($category->parent_id == null)
-                                                                                  <option value="{{$category -> id }}">{{$category -> name}}</option>
-                                                                                  @isset($category->_child)
-                                                                                      @foreach($category->_child as $subCat)
-                                                                                          <option value="{{$subCat -> id }}">--{{$subCat -> name}}</option>
-                                                                                      @endforeach
-                                                                                  @endisset
+                                                {{--          <div class="row hidden" id="cats-list">
+                                                              <div class="col-md-12">
+                                                                  <div class="form-group">
+                                                                      <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
+                                                                      <select name="parent_id" class="select2 form-control">
+                                                                          <optgroup label="{{__('admin/category.choose main category')}}">
+                                                                              @if( $allCategories && $allCategories -> count() > 0)
+                                                                                  @foreach($allCategories as $category)
+                                                                                      @if($category->parent_id == null)
+                                                                                          <option value="{{$category -> id }}">{{$category -> name}}</option>
+                                                                                          @isset($category->_child)
+                                                                                              @foreach($category->_child as $subCat)
+                                                                                                  <option value="{{$subCat -> id }}">--{{$subCat -> name}}</option>
+                                                                                              @endforeach
+                                                                                          @endisset
+                                                                                      @endif
+                                                                                  @endforeach
                                                                               @endif
-                                                                          @endforeach
-                                                                      @endif
-                                                                  </optgroup>
-                                                              </select>
-                                                              @error('parent_id')
-                                                              <span class="text-danger"> {{$message}}</span>
-                                                              @enderror
-                                                          </div>
-                                                      </div>
-                                                  </div>  --}}
+                                                                          </optgroup>
+                                                                      </select>
+                                                                      @error('parent_id')
+                                                                      <span class="text-danger"> {{$message}}</span>
+                                                                      @enderror
+                                                                  </div>
+                                                              </div>
+                                                          </div>  --}}
 
-                          <div class="row hidden" id="cats-list">
-                              <div class="col-md-12">
-                                  <div class="form-group">
-                                      <label for="projectinput2"> {{__('admin/category.choose main category')}} </label>
-                                      <select name="parent_id" style="width:auto;" class="form-control">
-                                          <optgroup label="{{__('admin/category.choose main category')}}">
-                                                @if($categories && $categories->count() > 0)
-                                                    @php
-                                                        if(App::getLocale() == 'ar')
-                                                            subCatRecursion($categories , 0 ,"←");
-                                                        else
-                                                            subCatRecursion($categories, 0,'→');
+                                                <div class="row hidden" id="cats-list">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label
+                                                                for="projectinput2"> {{__('admin/category.choose main category')}} </label>
+                                                            <select name="parent_id" style="width:auto;"
+                                                                    class="form-control">
+                                                                <optgroup
+                                                                    label="{{__('admin/category.choose main category')}}">
+                                                                    @if($categories && $categories->count() > 0)
+                                                                        @php
+                                                                            if(App::getLocale() == 'ar')
+                                                                                subCatRecursion($categories , 0 ,"←");
+                                                                            else
+                                                                                subCatRecursion($categories, 0,'→');
 
-                                                    @endphp
-                                              @endif
-                                          </optgroup>
-                                      </select>
-                                      @error('parent_id')
-                                      <span class="text-danger"> {{$message}}</span>
-                                      @enderror
-                                  </div>
-                              </div>
-                          </div>
+                                                                        @endphp
+                                                                    @endif
+                                                                </optgroup>
+                                                            </select>
+                                                            @error('parent_id')
+                                                            <span class="text-danger"> {{$message}}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
 
 
                                             </div>
@@ -192,7 +214,7 @@
                                                                value="1"
                                                                data-color="success"
                                                                class="switchery"
-                                                              checked
+                                                               checked
 
                                                         />
                                                         <label class="card-title ml-1">
@@ -240,21 +262,20 @@
     </div>
 
 
-
 @stop
 
 @section('script')
 
-            <script>
-                $("input:radio[name='type']").change(
-                    function() {
-                        if(this.checked && this.value == "2") {
-                            $('#cats-list').removeClass('hidden');
-                        }else {
-                            $('#cats-list').addClass('hidden');
-                        }
-                    }
-                );
-            </script>
+    <script>
+        $("input:radio[name='type']").change(
+            function () {
+                if (this.checked && this.value == "2") {
+                    $('#cats-list').removeClass('hidden');
+                } else {
+                    $('#cats-list').addClass('hidden');
+                }
+            }
+        );
+    </script>
 
-    @stop
+@stop

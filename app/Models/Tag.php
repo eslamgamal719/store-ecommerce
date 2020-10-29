@@ -16,4 +16,7 @@ class Tag extends Model
     protected $fillable = ['slug'];
 
     protected $hidden = ['translations'];
+
+
+
 }
