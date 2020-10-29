@@ -25,7 +25,8 @@ class Category extends Model
 
     protected $appends = ['photo_url'];
 
-    #################################################################################
+
+    //Scopes
     public function scopeParent($query) {
         return $query->whereNull('parent_id');
     }
@@ -40,11 +41,14 @@ class Category extends Model
 
 
 
+    //methods
     public function getActive() {
         return $this->is_active == 0 ? __('admin/category.inactive') : __('admin/category.active');
     }
 
 
+
+    //Relations
     public function _parent() {
         return $this->belongsTo(self::class, 'parent_id');
     }

@@ -50,8 +50,8 @@ class Product extends Model
     ];
 
 
-   ################################## Relations ###########################################
 
+    //Relations
     public function brand() {
         return $this->belongsTo(Brand::class)->withDefault();
     }
@@ -71,9 +71,16 @@ class Product extends Model
     }
 
 
-   ################################### Methods ##########################################
 
+    //Methods
     public function getActive() {
         return $this->is_active == 0 ? __('admin/product.inactive') : __('admin/product.active');
+    }
+
+
+
+    //Scopes
+    public function scopeSelectProducts($query) {
+        return $query->select('id', 'slug', 'price', 'created_at');
     }
 }
