@@ -25,7 +25,7 @@ class GeneralProductRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'slug'  => 'required|unique:products,slug',
+            'slug'  => 'required|unique:products,slug,' . $this->id,
             'categories.*' => 'numeric|exists:categories,id',
             'categories.0' => 'required',
             'tags' => 'nullable',
@@ -36,7 +36,7 @@ class GeneralProductRequest extends FormRequest
             $rules += [
                 $locale . '.name' => 'required|max:100',
                 $locale . '.description' => 'required|max:1000',
-                $locale . '.short_description' => 'nullable:max:500'
+                $locale . '.short_description' => 'nullable|max:500'
             ];
         }
 

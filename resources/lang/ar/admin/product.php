@@ -94,6 +94,12 @@ return [
     'category required' => 'يجب اختيار القسم',
 
 
+    'product' => 'المنتج',
+    'attribute' => 'الخاصيه',
+    'options' => 'قيم الخصائص',
+    'all options' => 'قيم الخصائص',
+
+
 
 
 

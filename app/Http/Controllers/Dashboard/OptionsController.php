@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\Dashboard\OptionRequest;
+use App\Models\Attribute;
+use App\Models\Option;
 use DB;
 use App\Models\Tag;
 use App\Models\Image;
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\ProductImageRequest;
@@ -22,8 +25,17 @@ class OptionsController extends Controller
     public function index()
     {
 
-        $products = Product::select('id', 'slug', 'price', 'created_at')->paginate(PAGINATION_COUNT);
-        return view('dashboard.products.general.index', compact('products'));
+        $options = Option::with(['product' => function($prod) {
+
+            $prod->select('id');
+
+       } , 'attribute' => function($attr) {
+
+           $attr->select('id');
+
+       }])->selectOptions()->paginate(PAGINATION_COUNT);
+
+        return view('dashboard.options.index', compact('options'));
 
     } // end of index
 
@@ -31,39 +43,27 @@ class OptionsController extends Controller
     public function create()
     {
         $data = [];
-        $data['tags'] = Tag::select('id')->orderBy('id', 'DESC')->get();
-        $data['brands'] = Brand::active()->select('id')->orderBy('id', 'DESC')->get();
-        $data['categories'] = Category::active()->select('id')->orderBy('id', 'DESC')->get();
 
-        return view('dashboard.products.general.create', $data);
+        $data['products'] = Product::active()->select('id')->orderBy('id', 'DESC')->get();
+
+        $data['attributes'] = Attribute::select('id')->orderBy('id', 'DESC')->get();
+
+        return view('dashboard.options.create', $data);
 
     } // end of create
 
 
-    public function store(GeneralProductRequest $request)
+    public function store(OptionRequest $request)
     {
         try {
 
-            DB::beginTransaction();
-            if (!$request->has('is_active'))
-                $request->request->add(['is_active' => 0]);
-            else
-                $request->request->add(['is_active' => 1]);
+            $product = Option::create($request->all());
 
-
-            $product = Product::create($request->except('categories', 'tags'));  //save in products table
-
-            //save many-to-many with categories and tags tables
-            $product->categories()->attach($request->categories);
-            $product->tags()->attach($request->tags);
-            DB::commit();
-
-            return redirect()->route('admin.products.price', $product->id);
+            return redirect()->route('admin.options.index');
 
         } catch (\Exception $ex) {
 
-            DB::rollback();
-            return $this->error('admin.products', __('admin/product.there is error'));
+            return $this->error('admin.options', __('admin/product.there is error'));
         }
 
     } //end of store

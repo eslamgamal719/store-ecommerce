@@ -54,11 +54,11 @@ Route::group(
         Route::resource('tags', 'TagsController')->except('show');
 
 
-        //Products Routes
+        //Create Products Routes
         Route::group(['prefix' => 'products'], function () {
             Route::get('/','ProductsController@index') -> name('products');
             Route::get('general-information','ProductsController@create') -> name('products.general.create');
-           Route::post('store-general-information','ProductsController@store') -> name('products.general.store');
+            Route::post('store-general-information','ProductsController@store') -> name('products.general.store');
 
             Route::get('price/{id}','ProductsController@getPrice') -> name('products.price');
             Route::post('price','ProductsController@saveProductPrice') -> name('products.price.store');
@@ -68,7 +68,25 @@ Route::group(
 
             Route::get('images/{id}','ProductsController@addImage') -> name('products.images');
             Route::post('images','ProductsController@saveProductImage') -> name('products.images.store');
-            Route::post('images/database','ProductsController@saveProductImageDB') -> name('products.images.store.db');
+            Route::post('images/database','ProductsController@saveProductImageDb') -> name('products.images.store.db');
+
+        });
+
+
+        //Edit Products Routes
+        Route::group(['prefix' => 'products'], function () {
+            Route::get('edit-general-information/{id}','ProductsController@edit') -> name('products.general.edit');
+            Route::put('update-general-information/{id}','ProductsController@update') -> name('products.general.update');
+
+            Route::get('edit-price/{id}','ProductsController@editPrice') -> name('products.price.edit');
+            Route::post('update-price','ProductsController@updateProductPrice') -> name('products.price.update');
+
+            Route::get('edit-stock/{id}','ProductsController@editStock') -> name('products.stock.edit');
+            Route::post('update-stock','ProductsController@updateProductStock') -> name('products.stock.update');
+
+            Route::get('edit-images/{id}','ProductsController@editImage') -> name('products.images.edit');
+            Route::post('images','ProductsController@saveProductImage') -> name('products.images.update');
+            Route::post('images/database','ProductsController@saveProductImageDb') -> name('products.images.update.db');
 
         });
 
