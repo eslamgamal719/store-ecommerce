@@ -33,7 +33,7 @@ class Product extends Model
         'is_active',
     ];
 
-    //protected $hidden = ['translations'];
+    protected $hidden = ['translations'];
 
     protected $casts = [
         'is_active' => 'boolean',
@@ -79,8 +79,16 @@ class Product extends Model
 
 
 
+
     //Scopes
     public function scopeSelectProducts($query) {
         return $query->select('id', 'slug', 'price', 'created_at');
     }
-}
+
+    public function scopeActive($query) {
+        return $query->where('is_active', 1);
+    }
+
+
+
+}//end of model

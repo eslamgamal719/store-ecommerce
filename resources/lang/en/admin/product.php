@@ -91,6 +91,14 @@ return [
     'category required' => 'You must choose category',
 
 
+    'product' => 'Product',
+    'attribute' => 'Attribute',
+    'options' => 'Options',
+    'all options' => 'All options',
+    'options' => 'Options',
+    'options' => 'Options',
+
+
 
 
     'ar' => [
@@ -104,6 +112,9 @@ return [
         'description' => 'Description in English',
         'short description' => 'Short description in English'
     ],
+
+
+
 
 
 

@@ -14,9 +14,10 @@ class Option extends Model
 
     protected $translatedAttributes =['name'];
 
-    protected $fillable = ['attribute_id', 'product_id'];
+    protected $fillable = ['attribute_id', 'product_id', 'price'];
 
     protected $hidden = ['translations'];
+
 
 
     //relations
@@ -30,6 +31,12 @@ class Option extends Model
     }
 
 
+
+
+    //Scopes
+    public function scopeSelectOptions($query) {
+        return $query->select('id', 'attribute_id', 'product_id', 'price');
+    }
 
 
 }
