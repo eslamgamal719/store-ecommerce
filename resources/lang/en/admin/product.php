@@ -95,8 +95,13 @@ return [
     'attribute' => 'Attribute',
     'options' => 'Options',
     'all options' => 'All options',
-    'options' => 'Options',
-    'options' => 'Options',
+    'add new option' => 'Add New Option',
+    'option data' => 'Option Data',
+    'choose product' => 'Choose Product',
+    'choose attribute' => 'Choose Attribute',
+    'all products' => 'All Products',
+    'all attributes' => 'All Attributes',
+
 
 
 

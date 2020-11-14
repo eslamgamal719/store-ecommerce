@@ -66,6 +66,9 @@ Route::group(
             Route::get('stock/{id}','ProductsController@getStock') -> name('products.stock');
             Route::post('stock','ProductsController@saveProductStock') -> name('products.stock.store');
 
+            Route::get('option/{id}','ProductsController@getOption') -> name('products.option');
+            Route::post('option','ProductsController@saveProductOption') -> name('products.option.store');
+
             Route::get('images/{id}','ProductsController@addImage') -> name('products.images');
             Route::post('images','ProductsController@saveProductImage') -> name('products.images.store');
             Route::post('images/database','ProductsController@saveProductImageDb') -> name('products.images.store.db');
@@ -85,8 +88,8 @@ Route::group(
             Route::post('update-stock','ProductsController@updateProductStock') -> name('products.stock.update');
 
             Route::get('edit-images/{id}','ProductsController@editImage') -> name('products.images.edit');
-            Route::post('images','ProductsController@saveProductImage') -> name('products.images.update');
-            Route::post('images/database','ProductsController@saveProductImageDb') -> name('products.images.update.db');
+            Route::post('update-images','ProductsController@saveProductImage') -> name('products.images.update');
+            Route::post('update-images/database','ProductsController@saveProductImageDb') -> name('products.images.update.db');
 
         });
 

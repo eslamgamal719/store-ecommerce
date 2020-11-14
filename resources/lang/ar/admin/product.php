@@ -97,7 +97,10 @@ return [
     'product' => 'المنتج',
     'attribute' => 'الخاصيه',
     'options' => 'قيم الخصائص',
-    'all options' => 'قيم الخصائص',
+    'add new option' => 'اضافه قيمه جديده للخاصيه',
+    'option data' => 'بيانات قيمه الخاصيه',
+    'choose product' => 'اختر المنتج',
+    'choose attribute' => 'اختر الخاصيه',
 
 
 

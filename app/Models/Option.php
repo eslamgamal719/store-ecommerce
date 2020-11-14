@@ -10,7 +10,7 @@ class Option extends Model
     use translatable;
 
 
-    protected $with = ['translations'];
+   // protected $with = ['translations'];
 
     protected $translatedAttributes =['name'];
 

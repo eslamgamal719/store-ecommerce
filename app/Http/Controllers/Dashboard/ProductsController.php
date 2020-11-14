@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Requests\Dashboard\OptionRequest;
+use App\Models\Attribute;
+use App\Models\Option;
 use DB;
 use App\Models\Tag;
 use App\Models\Image;
@@ -109,7 +112,7 @@ class ProductsController extends Controller
         try {
             Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
 
-            return redirect()->route('admin.products.images', $request->product_id);
+            return redirect()->route('admin.products.option', $request->product_id);
 
         } catch (\Exception $ex) {
 
@@ -117,6 +120,39 @@ class ProductsController extends Controller
         }
 
     }//end of save product stock
+
+
+
+    public function getOption($product_id) {
+
+        $data = [];
+
+        $data['product_id'] = $product_id;
+
+        $data['attributes'] = Attribute::select('id')->orderBy('id', 'DESC')->get();
+
+        $data['products'] = Product::active()->select('id')->orderBy('id', 'DESC')->get();
+
+        return view('dashboard.products.options.create', $data);
+
+    }//end of get option
+
+
+    public function saveProductOption(OptionRequest $request)
+    {
+        try {
+
+            Option::create($request->all());
+
+            return redirect()->route('admin.products.images', $request->product_id);
+
+        } catch (\Exception $ex) {
+
+            return error('admin.options.index', __('admin/product.there is error'));
+        }
+
+    } //end of store
+
 
 
     public function addImage($product_id)
