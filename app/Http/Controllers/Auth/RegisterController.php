@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Services\SMSGateways\VictoryLinkSms;
+use App\Http\Services\VerificationServices;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,27 +34,31 @@ class RegisterController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
+    public $sms_services;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(VerificationServices $sms_services)
     {
         $this->middleware('guest');
+        $this->sms_services = $sms_services;
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            //  'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'mobile' => ['required', 'string', 'max:11', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -59,15 +66,36 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
-     * @return \App\User
+     * @param array $data
+     * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        try {
+            DB::beginTransaction();
+
+            $verification = [];
+            $user = User::create([
+                'name' => $data['name'],
+                // 'email' => $data['email'],
+                'mobile' => $data['mobile'],
+                'password' => Hash::make($data['password']),
+            ]);
+
+            $verification['user_id'] = $user->id;
+
+            //set new code and save in verification table
+           $verification_data = $this->sms_services->setVerificationCode($verification);
+           $message = $this->sms_services->getSMSVerifyMessageByAppName($verification_data->code);
+
+            //send to user mobile by sms gateway
+            //there are no gateway credentials in config file
+            //app(VictoryLinkSms::class)->sendSms($user->mobile, $message);
+
+            DB::commit();
+
+        } catch (\Exception $ex) {
+            DB::rollback();
+        }
     }
 }

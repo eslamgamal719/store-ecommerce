@@ -27,6 +27,9 @@ Route::group(
 
     Route::group(['namespace' => 'Site', 'middleware' => 'auth'], function() {
 
+        Route::get('profile', function() {
+            return "sdfdsfdsf";
+        });
     });
 
 

@@ -1,6 +1,6 @@
 @extends('layouts.site')
 
-@section('slider)
+@section('slider')
     <div id="displayTop" class="displaytopthree">
         <div class="container">
             <div class="row">
@@ -6281,4 +6281,4 @@
     </div>
 
 
-@stop
+@endsection
