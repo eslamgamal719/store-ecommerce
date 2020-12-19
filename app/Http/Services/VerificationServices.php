@@ -4,10 +4,13 @@ namespace App\Http\Services;
 
 
 
+use App\Models\User;
 use App\Models\VerificationCodes;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationServices
 {
+
 
     public function setVerificationCode($data) {
 
@@ -24,8 +27,29 @@ class VerificationServices
     {
         $message = " is your verification code for your account";
 
+        return $code.$message;    //" 658848 is your ver......."
+    }
 
-        return $code.$message;
+
+    public function checkOTPCode($code) {
+
+        if(Auth::guard()->check()) {
+            $logedInUserId = Auth::id();
+            $verification_data = VerificationCodes::where('user_id', $logedInUserId)->first();
+
+            if($verification_data->code == $code) {
+                User::whereId($logedInUserId)->update(['verified_at' => now()]);
+                return true;
+            }else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+    public function removeOTPCode($code) {
+        VerificationCodes::where('code', $code)->delete();
     }
 
 }

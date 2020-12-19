@@ -43,8 +43,8 @@ define('PAGINATION_COUNT', 10);
     }
 
 
-     function getPhoto( $val) {
-        return  asset('assets/images/$folder/' . $val);
+     function getPhoto( $folder, $val) {
+        return  asset("assets/images/$folder/" . $val);
     }
 
 

@@ -21,72 +21,25 @@
                             <div class="nov_preload">
                                 <div class="process-loading active">
                                     <div class="loader">
+                                        @isset($sliders)
+                                            @foreach($sliders as $slider)
                                         <div class="dot"></div>
-                                        <div class="dot"></div>
-                                        <div class="dot"></div>
-                                        <div class="dot"></div>
-                                        <div class="dot"></div>
+                                            @endforeach
+                                        @endisset
                                     </div>
                                 </div>
                             </div>
                             <div class="nivoSlider">
-                                <a href="#">
-                                    <img src="modules/novnivoslider/images/266cf50ba4d1d91fa5f5ded20bb66ea38de3b350_1.jpg"
-                                         alt="" title="#htmlcaption_42">
-                                </a>
-                                <a href="#">
-                                    <img src="modules/novnivoslider/images/62896aebffd6fdce749d957fc76bd83d734fa338_2.jpg"
-                                         alt="" title="#htmlcaption_43">
-                                </a>
-                                <a href="#">
-                                    <img src="modules/novnivoslider/images/195d62088850e3489886855b4239edcc4fb1868f_3.jpg"
-                                         alt="" title="#htmlcaption_57">
-                                </a>
-                            </div>
-                            <div id="htmlcaption_42" class="nivo-html-caption">
-                                <div class="nov-slider-ct">
-                                    <div class="nov-center slider-none">
-                                        <div class="nov-title effect-0">
-                                            Slide Home 3 01
-                                        </div>
-                                        <div class="nov-description effect-0">
-                                            <p>Slide Home 3 01</p>
-                                        </div>
-                                        <div class="nov-html effect-0">
-                                            <p>Slide Home 3 01</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="htmlcaption_43" class="nivo-html-caption">
-                                <div class="nov-slider-ct">
-                                    <div class="nov-center slider-none">
-                                        <div class="nov-title effect-0">
-                                            Slide Home 3 02
-                                        </div>
-                                        <div class="nov-description effect-0">
-                                            <p>Slide Home 3 02</p>
-                                        </div>
-                                        <div class="nov-html effect-0">
-                                            <p>Slide Home 3 02</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="htmlcaption_57" class="nivo-html-caption">
-                                <div class="nov-slider-ct">
-                                    <div class="nov-center slider-none">
-                                        <div class="nov-title effect-0">
-                                            Slider Home 3 03
-                                        </div>
-                                        <div class="nov-description effect-0">
-                                            <p>Slider Home 3 03</p>
-                                        </div>
-                                        <div class="nov-html effect-0">
-                                            <p>Slider Home 3 03</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                @isset($sliders)
+                                    @foreach($sliders as $slider)
+                                        <a href="#">
+                                            <img src="{{ $slider->photo }}"
+                                                 alt="" title="#htmlcaption_42">
+                                        </a>
+                                    @endforeach
+                                @endisset
+
+
                             </div>
                         </div>
                     </div>

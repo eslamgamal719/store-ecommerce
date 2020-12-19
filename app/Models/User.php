@@ -34,11 +34,29 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        //'email_verified_at' => 'datetime',
+        'verified_at' => 'datetime',
     ];
 
 
-    public function codes() {
+    //Relations
+    public function codes()
+    {
         return $this->hasMany(VerificationCodes::class, 'user_id');
     }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'wish_lists')->withTimestamps();
+    }
+
+
+
+
+    //methods
+    public function wishlistHas($productId)
+    {
+        return $this->wishlist()->where('product_id', $productId)->exists();
+    }
+
 }

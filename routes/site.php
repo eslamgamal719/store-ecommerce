@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-route::get('/',function(){
-    return view('front.home');
-})->name('home');
-
 
 
 Route::group(
@@ -24,22 +20,41 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ], function () {
 
+    Route::group(['namespace' => 'Site'/*, 'middleware' => 'guest'*/], function() {
 
-    Route::group(['namespace' => 'Site', 'middleware' => 'auth'], function() {
+        Route::get('/', 'HomeController@home')->name('home')->middleware('verifiedUser');
+
+        Route::get('category/{slug}', 'CategoryController@productsBySlug')->name('category');
+
+    });
+
+
+    //authenticated and verified
+    Route::group(['namespace' => 'Site', 'middleware' => ['auth', 'verifiedUser']], function() {
 
         Route::get('profile', function() {
             return "sdfdsfdsf";
         });
-    });
-
-
-    Route::group(['namespace' => 'Auth', 'middleware' => 'guest'], function() {
-
-       // Route::get('login', 'LoginController@login')->name('login');
-      //  Route::post('login', 'LoginController@postLogin')->name('post.login');
 
     });
 
 
+    //authenticated only
+    Route::group(['namespace' => 'Site', 'middleware' => 'auth'], function() {
+
+        Route::post('verify-user', 'VerificationCodeController@verify')->name('verify-user');
+        Route::get('verify', 'VerificationCodeController@getVerifyPage')->name('get.verification.form');
+
+
+    });
+
+
+
+
+});
+
+Route::group(['namespace' => 'Site', 'middleware' => 'auth'], function() {
+
+    Route::post('wishlist', 'WishlistController@store')->name('wishlist.store');
 
 });

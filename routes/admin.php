@@ -99,6 +99,16 @@ Route::group(
         //Options Routes
         Route::resource('options', 'OptionsController')->except('show');
 
+
+        //Image Sliders Routes
+        Route::group(['prefix' => 'sliders'], function() {
+            Route::get('/','SliderController@addImage') -> name('sliders.create');
+            Route::post('images','SliderController@saveSliderImage') -> name('sliders.images.store');
+            Route::post('images/database','SliderController@saveSliderImageDb') -> name('sliders.images.store.db');
+        });
+
+
+
     });
 
 
