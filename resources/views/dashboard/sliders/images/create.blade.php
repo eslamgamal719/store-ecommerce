@@ -43,27 +43,22 @@
                                 @include('dashboard.includes.alerts.errors')
                                 <div class="card-content collapse show">
                                     <div class="card-body">
+
                                         <form class="form"
                                               action="{{route('admin.sliders.images.store.db')}}"
                                               method="POST"
                                               enctype="multipart/form-data">
                                             @csrf
 
-
                                             <div class="form-body">
-
                                                 <h4 class="form-section"><i class="ft-home"></i> صور المنتج </h4>
-
-                                                <div class="form-group">
-                                                    <div id="dpz-multiple-files" class="dropzone dropzone-area">
-                                                        <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
+                                                    <div class="form-group">
+                                                        <div id="dpz-multiple-files" class="dropzone dropzone-area">
+                                                            <div class="dz-message">يمكنك رفع اكثر من صوره هنا</div>
+                                                        </div>
+                                                        <br><br>
                                                     </div>
-                                                    <br><br>
-                                                </div>
-
                                             </div>
-
-
 
 
                                             <div class="form-actions">

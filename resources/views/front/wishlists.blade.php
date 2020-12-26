@@ -15,7 +15,7 @@
                     </li>
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                         <a itemprop="item" href="36-mini-speaker.html">
-                            <span itemprop="name">{{ $category->name }}</span>
+                            <span itemprop="name"></span>
                         </a>
                         <meta itemprop="position" content="3">
                     </li>
@@ -33,7 +33,7 @@
 
 
                     <div class="block-category hidden-sm-down">
-                        <h1 class="h1">{{ $category->name }}</h1>
+                        <h1 class="h1">Favorite List</h1>
                     </div>
 
 
@@ -111,7 +111,7 @@
                                              itemtype="http://schema.org/Product">
                                             <div class="thumbnail-container">
 
-                                                <a href="{{ route('product.details', $product->slug) }}"
+                                                <a href="audio/22-408-aenean-porta-ligula-egestas-east.html#/1-size-s/10-color-red"
                                                    class="thumbnail product-thumbnail two-image">
                                                     <img class="img-fluid image-cover"
                                                          src="{{ getPhoto('products', $product->images[0]->photo) ?? '' }}"
@@ -164,40 +164,41 @@
                                                     </div>
 
                                                     <div class="product-title" itemprop="name"><a
-                                                            href="{{ route('product.details', $product->slug) }}">{{ $product->name }}</a></div>
+                                                            href="">{{ $product->name }}</a></div>
 
                                                     <div class="product-group-price">
+
                                                         <div class="product-price-and-shipping">
+
+
                                                             <span itemprop="price" class="price">{{ $product->special_price ?? $product->price }}</span>
                                                              @if($product->special_price)
                                                                  <span class="regular-price">{{ $product->price }}</span>
                                                              @endif
-                                                        </div>
-                                                    </div>
 
+                                                        </div>
+
+                                                    </div>
                                                     <div class="product-desc" itemprop="desciption">
                                                         {!! $product->description !!}
                                                     </div>
                                                 </div>
-
                                                 <div class="product-buttons d-flex justify-content-center"
                                                      itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                                                    <form action="http://demo.bestprestashoptheme.com/savemart/en/cart"
+                                                          method="post" class="formAddToCart">
+                                                        <input type="hidden" name="token"
+                                                               value="28add935523ef131c8432825597b9928">
+                                                        <input type="hidden" name="id_product" value="22">
+                                                        <a class="add-to-cart" href="#"
+                                                           data-button-action="add-to-cart"><i class="novicon-cart"></i><span>Add to cart</span></a>
+                                                    </form>
 
-                                            <form action="http://demo.bestprestashoptheme.com/savemart/en/cart"
-                                                  method="post" class="formAddToCart">
-                                                <input type="hidden" name="token"
-                                                       value="28add935523ef131c8432825597b9928">
-                                                <input type="hidden" name="id_product" value="22">
-                                                <a class="add-to-cart cart-addition" data-product-id="{{ $product->id }}" data-product-slug="{{ $product->slug }}"
-                                                   href="#"
-                                                   data-button-action="add-to-cart"><i class="novicon-cart"></i><span>Add to cart</span></a>
-                                            </form>
-
-                                                    <a class="addToWishlist wishlistProd_22" href="#"
+                                                    <a class="removeFromWishlist addToWishlist wishlistProd_22" href="#"
                                                        data-product-id="{{$product->id}}"
                                                     >
                                                         <i class="fa fa-heart"></i>
-                                                        <span>Add to Wishlist</span>
+                                                        <span>Remove From Wishlist</span>
                                                     </a>
 
 
@@ -274,14 +275,12 @@
         $(document).on('click', '.close', function() {
             $($('.quickview-modal-product-details-' + $(this).attr('data-product-id'))).css('display', 'none');
             $('.not-loggedin-modal').css('display', 'none');
-            $('.alert-modal1').css('display', 'none');
-            $('.alert-modal2').css('display', 'none');
         });
 
 
 
 
-        $(document).on('click', '.addToWishlist', function (e) {
+        $(document).on('click', '.removeFromWishlist', function (e) {
             e.preventDefault();
 
             @guest()
@@ -290,40 +289,17 @@
 
 
             $.ajax({
-                type: 'post',
-                url: "{{Route('wishlist.store')}}",
+                type: 'delete',
+                url: "{{Route('wishlist.destroy')}}",
                 data: {
                     'productId': $(this).attr('data-product-id'),
                     '_token': "{{csrf_token()}}",
                 },
                 success: function (data) {
-                    if(data.wished) {
-                        $('.alert-modal1').css('display', 'block');
-                    }else {
-                        $('.alert-modal2').css('display', 'block');
-                    }
+                    location.reload();
                 }
             });
         });
-
-
-        $(document).on('click', '.cart-addition', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                type: 'post',
-                url: '{{ route('site.cart.add') }}',
-                data: {
-                    'product_id': $(this).attr('data-product-id'),
-                    'product_slug': $(this).attr('data-product-slug'),
-                    '_token': "{{csrf_token()}}",
-                },
-                success: function(data) {
-
-                }
-            });
-        });
-
     </script>
 
 @stop

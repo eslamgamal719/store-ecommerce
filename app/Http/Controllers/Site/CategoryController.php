@@ -14,7 +14,15 @@ class CategoryController extends Controller
     {
         $data = [];
 
+        $data['categories'] = Category::parent()->select('id', 'slug')->with(['children' => function($q) {
+            $q->select('id', 'slug', 'parent_id');
+            $q->with(['children' => function($qu) {
+                $qu->select('id', 'slug', 'parent_id');
+            }]);
+        }])->get();
+
         $data['category'] = Category::where('slug', $slug)->first();
+
         if($data['category']) {
             $data['products'] = $data['category']->products;
         }

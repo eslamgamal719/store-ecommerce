@@ -21,15 +21,18 @@
                         <a class="login" href="login-1.html" rel="nofollow" title="Log in to your customer account"><i class="header-icon-account"></i></a>
                     </div>
                     <div class="header_link_wishlist">
-                        <a href="login-2.html" title="My Wishlists">
+                        <a href="{{route('wishlist.products.index')}}" title="My Wishlists">
                             <i class="header-icon-wishlist"></i>
                         </a>
                     </div>
+
                     <div id="_desktop_cart">
                         <div class="blockcart cart-preview active" data-refresh-url="//demo.bestprestashoptheme.com/savemart/en/module/ps_shoppingcart/ajax">
                             <div class="header-cart">
                                 <div class="cart-left">
+                                    <a href="{{ route('site.cart.index') }}">
                                     <div class="shopping-cart"><i class="zmdi zmdi-shopping-cart"></i></div>
+                                    </a>
                                     <div class="cart-products-count">0</div>
                                 </div>
                                 <div class="cart-right d-flex flex-column align-self-end ml-13">
