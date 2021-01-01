@@ -82,6 +82,7 @@ class PaymentController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
+
         if ($err) {
             return [
                 'payment_success' => false,
@@ -150,7 +151,7 @@ class PaymentController extends Controller
 
 
     }
-/*
+
     private function saveOrder($amount, $PaymentMethodId)
     {
         return Order::create([
@@ -173,6 +174,6 @@ class PaymentController extends Controller
             'payment_method' => $order->payment_method,
         ]);
     }
-*/
+
 
 }
