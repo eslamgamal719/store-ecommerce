@@ -131,17 +131,30 @@
                     <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i class="la la-shopping-cart"></i>
                             {{__('admin/sidebar.shipping methods')}}</a>
                         <ul class="menu-content">
+
                             <li><a class="menu-item" href="{{route('admin.edit.shipping.method', 'free')}}"
                                    data-i18n="nav.templates.vert.classic_menu">{{__('admin/sidebar.free shipping')}}</a>
                             </li>
+
                             <li><a class="menu-item" href="{{route('admin.edit.shipping.method', 'inner')}}">{{__('admin/sidebar.inner shipping')}}</a>
                             </li>
+
                             <li><a class="menu-item" href="{{route('admin.edit.shipping.method', 'outer')}}"
                                    data-i18n="nav.templates.vert.compact_menu">{{__('admin/sidebar.outer shipping')}}</a>
                             </li>
                         </ul>
                     </li>
+
+                      <li><a class="menu-item" href="#" data-i18n="nav.templates.vert.main"><i class="la la-shopping-cart"></i>
+                        {{__('admin/sidebar.main slider')}}</a>
+                          <ul class="menu-content">
+                              <li><a class="menu-item" href="{{route('admin.sliders.create')}}"
+                                   data-i18n="nav.templates.vert.classic_menu">{{__('admin/sidebar.slider images')}}</a>
+                              </li>
+                          </ul>
+                     </li>
                 </ul>
+
             </li>
 
 

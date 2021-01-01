@@ -25,15 +25,15 @@ class OptionsController extends Controller
     public function index()
     {
 
-        $options = Option::with(['product' => function($prod) {
+        $options = Option::with(['product' => function ($prod) {
 
             $prod->select('id');
 
-       } , 'attribute' => function($attr) {
+        }, 'attribute' => function ($attr) {
 
-           $attr->select('id');
+            $attr->select('id');
 
-       }])->selectOptions()->paginate(PAGINATION_COUNT);
+        }])->selectOptions()->paginate(PAGINATION_COUNT);
 
         return view('dashboard.options.index', compact('options'));
 
@@ -57,108 +57,54 @@ class OptionsController extends Controller
     {
         try {
 
-            $product = Option::create($request->all());
+            Option::create($request->all());
 
-            return redirect()->route('admin.options.index');
+            return success('admin.options.index', __('admin/product.added successfully'));
 
         } catch (\Exception $ex) {
 
-            return $this->error('admin.options', __('admin/product.there is error'));
+            return error('admin.options.index', __('admin/product.there is error'));
         }
 
     } //end of store
 
 
-    public function getPrice($product_id)
+    public function edit(Option $option)
     {
 
-        return view('dashboard.products.price.create')->with('id', $product_id);
+        $data = [];
 
-    } // end of get price
+        $data['option'] = $option;
+
+        $data['products'] = Product::active()->select('id')->orderBy('id', 'DESC')->get();
+
+        $data['attributes'] = Attribute::select('id')->orderBy('id', 'DESC')->get();
+
+        return view('dashboard.options.edit', $data);
+    }
 
 
-    public function saveProductPrice(ProductPriceRequest $request)
+    public function update(OptionRequest $request, Option $option)
     {
         try {
-            // ->update($request->only(['price', 'special_price', 'special_price_start', 'special_price_end', 'spectail_price_type']));
-            Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
 
-            return redirect()->route('admin.products.stock', $request->product_id);
+            DB::beginTransaction();
+
+            $option->update($request->only('product_id', 'attribute_id', 'price'));
+            $option->translate('en')->name = $request->en['name'];
+            $option->translate('ar')->name = $request->ar['name'];
+            $option->save();
+
+            DB::commit();
+
+            return success('admin.options.index', __('admin/product.updated successfully'));
 
         } catch (\Exception $ex) {
-
             DB::rollback();
-            return $this->error('admin.products', __('admin/product.there is error'));
-
-        }
-
-    } // end of save product price
-
-
-    public function getStock($product_id)
-    {
-
-        return view('dashboard.products.stock.create')->with('id', $product_id);
-
-    } // end of get stock
-
-
-    public function saveProductStock(ProductStockRequest $request)
-    {
-
-        try {
-            Product::whereId($request->product_id)->update($request->except(['_token', 'product_id']));
-
-            return redirect()->route('admin.products.images', $request->product_id);
-
-        } catch (\Exception $ex) {
-
-            return $this->error('admin.products', __('admin/product.there is error'));
-        }
-
-    } //end of save product stock
-
-
-    public function addImage($product_id)
-    {
-
-        return view('dashboard.products.images.create')->withId($product_id);
-
-    } // end of add Image
-
-
-    //save images in folder only
-    public function saveProductImage(Request $request)
-    {
-
-        $file = $request->file('dzfile');
-        $fileName = uploadImage('products', $file);
-
-        return response()->json([
-            'name' => $fileName,
-            'original_name' => $file->getClientOriginalName()
-        ]);
-
-    } // end of save product image
-
-
-    public function saveProductImageDb(ProductImageRequest $request)
-    {
-        try {
-              if($request->has('document') && count($request->document) > 0) {
-                  foreach ($request->document as $image) {
-                      Image::create([
-                          'product_id' => $request->product_id,
-                          'photo'      => $image
-                      ]);
-                  }
-              }
-
-              return $this->success('admin.products', __('admin/product.added successfully'));
-        } catch (\Exception $ex) {
-            return $this->error('admin.products.index', __('admin/product.there is error'));
+            return error('admin.options.index', __('admin/product.there is error'));
         }
     }
+
 
 
 

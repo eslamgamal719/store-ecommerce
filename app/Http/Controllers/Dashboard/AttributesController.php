@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use DB;
 use Storage;
 use App\Models\Attribute;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Dashboard\BrandsRequest;
 use App\Http\Requests\Dashboard\AttributesRequest;
 
 
@@ -36,7 +34,7 @@ class AttributesController extends Controller
     {
             $attribute = Attribute::create($request->all());
 
-            return $this->success('admin.attributes.index', __('admin/product.add successfully'));
+            return success('admin.attributes.index', __('admin/product.add successfully'));
 
     }//end of store
 
@@ -54,13 +52,11 @@ class AttributesController extends Controller
 
             $attribute->update($request->all());
 
-            return $this->success('admin.attributes.index', __('admin/attributes.updated successfully'));
+            return success('admin.attributes.index', __('admin/attributes.updated successfully'));
 
         } catch (\Exception $ex) {
 
-            DB::rollback();
-
-            return $this->error('admin.attributes.index', __('admin/attributes.fail'));
+            return error('admin.attributes.index', __('admin/attributes.fail'));
         }
 
     }//end of update
@@ -72,12 +68,11 @@ class AttributesController extends Controller
             $attribute->translations()->delete();
             $attribute->delete();
 
-            return $this->success('admin.attributes.index', __('admin/attributes.deleted successfully'));
+            return success('admin.attributes.index', __('admin/attributes.deleted successfully'));
 
         } catch (\Exception $ex) {
 
-            DB::rollback();
-            return $this->error('admin.attributes.index', __('admin/attributes.fail'));
+            return error('admin.attributes.index', __('admin/attributes.fail'));
 
         }
 

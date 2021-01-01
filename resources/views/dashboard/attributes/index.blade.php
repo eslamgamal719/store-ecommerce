@@ -75,7 +75,7 @@
                                                                 <form action="{{route('admin.attributes.destroy',$attribute -> id)}}" method="post" style="display: inline-block">
                                                                     @csrf
                                                                     {{method_field('delete') }}
-                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"><i class="fa fa-trash"></i>{{__('admin/brands.delete')}}</button>
+                                                                    <button type="submit" class="btn btn-outline-danger btn-min-width box-shadow-3 mr-1 mb-1"><i class="fa fa-trash"></i>{{__('admin/product.delete')}}</button>
                                                                 </form>
 
                                                             </div>

@@ -53,11 +53,18 @@ class Category extends Model
         return $this->belongsTo(self::class, 'parent_id');
     }
 
-    public function _child() {
+    public function children() {
         return $this->hasMany(self::class, 'parent_id');
     }
 
+    public function products() {
+        return $this->belongsToMany(Product::class, 'product_categories');
+    }
 
+
+
+
+    //mutators
     public function getPhotoUrlAttribute()
     {
         return asset('assets/images/categories/'.$this->photo);
