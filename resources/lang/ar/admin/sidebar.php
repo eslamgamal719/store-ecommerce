@@ -20,4 +20,10 @@ return [
     'add new attribute' => 'اضافه خاصيه جديده',
     'options'           => 'قيم الخصائص',
     'add new option'    => 'اضافه خاصيه جديده',
+    'add new role'      => 'اضافه صلاحيه جديده',
+    'roles'             => 'الصلاحيات',
+    'admins' => 'الاداريين',
+    'add new admin' => 'اضافه مشرف جديد',
+
+
 ];

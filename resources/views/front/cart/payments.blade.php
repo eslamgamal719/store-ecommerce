@@ -97,6 +97,43 @@
 @stop
 
 
+@section('scripts')
+    <script>
+
+
+
+
+        $(document).on('click', '.remove-from-cart', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                url: $(this).attr('data-url-product'),
+                data: {
+                    'product_id': $(this).attr('data-id-product'),
+                    '_token': "{{csrf_token()}}",
+                },
+                success: function (data) {
+
+                }
+            });
+        });
+    </script>
+
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('249c38b0cbf5d1ae0340', {
+            cluster: 'mt1'
+        });
+    </script>
+
+@stop
+
+
 
 
 

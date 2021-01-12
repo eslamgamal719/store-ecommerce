@@ -55,7 +55,7 @@ class BrandsController extends Controller
             return success('admin.brands.index', __('admin/brands.add successfully'));
 
         } catch (\Exception $ex) {
-
+            DB::rollback();
             return error('admin.brands.index', __('admin/brands.add fail'));
 
         }

@@ -15,9 +15,8 @@ use GuzzleHttp\Client;
 
 class PaymentController extends Controller
 {
-
-    private $request_client;
     private $base_url;
+    private $request_client;
     private $token;
 
     public function __construct(Client $request_client)
@@ -32,11 +31,13 @@ class PaymentController extends Controller
         return view('front.cart.payments', compact('amount'));
     }
 
+
     /**
      * @param Request $request
      */
     public function processPayment(Request $request)
     {
+
         $error = '';
 
         //best practice as we do sperate validation on request form file
@@ -64,7 +65,6 @@ class PaymentController extends Controller
         $customerMobile = strlen($phone) <= 11 ? $phone : '123456';
         $data['Language'] = 'en';
         $PaymentMethodId = $request->PaymentMethodId;
-
         $token = $this->token;
         $basURL = $this->base_url;
         $curl = curl_init();
@@ -82,7 +82,6 @@ class PaymentController extends Controller
         $response = curl_exec($curl);
         $err = curl_error($curl);
         curl_close($curl);
-
         if ($err) {
             return [
                 'payment_success' => false,
@@ -127,20 +126,20 @@ class PaymentController extends Controller
 
         $json = json_decode((string)$response, true);
         $PaymentId = $json["Data"]["PaymentId"];
-        try {
-            DB::beginTransaction();
-            // if success payment save order and send realtime notification to admin
-            $order = $this->saveOrder($amount, $PaymentMethodId);  // your task is  . add products with options to order to preview on admin
-            $this->saveTransaction($order, $PaymentId);
-            DB::commit();
+        /*   try {
+               DB::beginTransaction();
+               // if success payment save order and send realtime notification to admin
+               $order = $this->saveOrder($amount, $PaymentMethodId);  // your task is  . add products with options to order to preview on admin
+               $this->saveTransaction($order, $PaymentId);
+               DB::commit();
 
-            //fire event on order complete success for realtime notification
-          //  event(new NewOrder($order));
+               //fire event on order complete success for realtime notification
+               event(new NewOrder($order));
 
-        } catch (\Exception $ex) {
-            DB::rollBack();
-            return $ex;
-        }
+           } catch (\Exception $ex) {
+               DB::rollBack();
+               return $ex;
+           }*/
         // replace return statment with message that tell the user that the payment successes
         return [
             'payment_success' => true,
@@ -148,9 +147,91 @@ class PaymentController extends Controller
             'data' => $json,
             'status' => 'succeeded',
         ];
-
-
     }
+
+
+
+   /* public function processPayment(Request $request) {
+        $error = '';
+
+        //best practice as we do sperate validation on request form file
+        $validator = Validator::make($request->all(), [
+            'ccNum' => 'required',
+            'ccExp' => 'required',
+            'ccCvv' => 'required|numeric',
+            'amount' => 'required|numeric|min:100',
+        ]);
+
+        if ($validator->fails()) {
+            $error = 'Please check if you have filled in the form correctly. Minimum order amount is PHP 100.';
+        }
+
+        $ccNum = str_replace(' ', '', $request->ccNum);
+        $ccExp = $request->ccExp;
+        $ccCvv = $request->ccCvv;
+        $amount = $request->amount;
+        $customerName = auth()->user()->name;
+        $customerEmail = 'demo@gmail.com';
+        $phone = substr(auth()->user()->mobile, 4);
+        $ccExp = (explode('/', $ccExp));
+        $ccMon = $ccExp[0];
+        $ccYear = $ccExp[1];
+        $customerMobile = strlen($phone) <= 11 ? $phone : '123456';
+        $data['Language'] = 'en';
+        $PaymentMethodId = $request->PaymentMethodId;
+
+
+         $token  = "rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL"; #token value to be placed here;
+        $basURL = "https://apitest.myfatoorah.com";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "$basURL/v2/ExecutePayment",
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\"PaymentMethodId\":\"2\",\"CustomerName\": \"Ahmed\",\"DisplayCurrencyIso\": \"KWD\", \"MobileCountryCode\":\"+965\",\"CustomerMobile\": \"92249038\",\"CustomerEmail\": \"aramadan@myfatoorah.com\",\"InvoiceValue\": 100,\"CallBackUrl\": \"https://google.com\",\"ErrorUrl\": \"https://google.com\",\"Language\": \"en\",\"CustomerReference\" :\"ref 1\",\"CustomerCivilId\":12345678,\"UserDefinedField\": \"Custom field\",\"ExpireDate\": \"\",\"CustomerAddress\" :{\"Block\":\"\",\"Street\":\"\",\"HouseBuildingNo\":\"\",\"Address\":\"\",\"AddressInstructions\":\"\"},\"InvoiceItems\": [{\"ItemName\": \"Product 01\",\"Quantity\": 1,\"UnitPrice\": 100}]}",
+            CURLOPT_HTTPHEADER => array("Authorization: Bearer $token","Content-Type: application/json"),
+        ));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+
+        if ($err) {
+            return [
+                'payment_success' => false,
+                'status' => 'failed',
+                'error' => $err
+            ];
+        }
+
+         $json  = json_decode((string)$response, true);
+         //echo "json  json: $json '<br />'";
+
+      return   $payment_url = $json["Data"]["PaymentURL"];
+
+            # after getting the payment url call it as a post API and pass card info to it
+            # if you saved the card info before you can pass the token for the api
+
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => "$payment_url",
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\"paymentType\": \"card\",\"card\": {\"Number\":\"5123450000000008\",\"expiryMonth\":\"05\",\"expiryYear\":\"21\",\"securityCode\":\"100\"},\"saveToken\": false}",
+            CURLOPT_HTTPHEADER => array("Authorization: Bearer $token","Content-Type: application/json"),
+        ));
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+            return [];
+        }
+    }*/
+
 
     private function saveOrder($amount, $PaymentMethodId)
     {
@@ -177,3 +258,5 @@ class PaymentController extends Controller
 
 
 }
+
+;
