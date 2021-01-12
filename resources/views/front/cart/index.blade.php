@@ -57,9 +57,11 @@
 
                                                                     <div class="product-group-price">
                                                                         <div class="product-price-and-shipping">
-                                                                            <span itemprop="price" class="price">{{ $product->special_price ?? $product->price }}</span>
+                                                                            <span itemprop="price"
+                                                                                  class="price">{{ $product->special_price ?? $product->price }}</span>
                                                                             @if($product->special_price)
-                                                                                <span class="regular-price">{{ $product->price }}</span>
+                                                                                <span
+                                                                                    class="regular-price">{{ $product->price }}</span>
                                                                             @endif
                                                                         </div>
                                                                     </div>
@@ -97,7 +99,7 @@
                                                                             class="col-sm-3 col-xs-12 text-xs-right align-self-end">
                                                                             <div
                                                                                 class="cart-line-product-actions shop-item">
-                                                                                <a  onclick="$(this).closest('.cart-item').remove()"
+                                                                                <a onclick="$(this).closest('.cart-item').remove()"
                                                                                    class="remove-from-cart btn btn-danger"
                                                                                    rel="nofollow"
                                                                                    data-link-action="delete-from-cart"
@@ -164,7 +166,7 @@
                                 <div>
                             <span class="item-product">
                             <img class="svg invisible"
-                             src="../modules/blockreassurance/img/ic_verified_user_black_36dp_1x.png">
+                                 src="../modules/blockreassurance/img/ic_verified_user_black_36dp_1x.png">
                                     &nbsp;
                             </span>
                                     <p class="block-title" style="color:#000000;">Security policy (edit with
@@ -174,17 +176,17 @@
 
             <span class="item-product">
                       <img class="svg invisible"
-                         src="../modules/blockreassurance/img/ic_local_shipping_black_36dp_1x.png"> &nbsp;
+                           src="../modules/blockreassurance/img/ic_local_shipping_black_36dp_1x.png"> &nbsp;
             </span>
 
-                   <p class="block-title" style="color:#000000;">Delivery policy (edit with
+                                    <p class="block-title" style="color:#000000;">Delivery policy (edit with
                                         Customer reassurance module)</p>
                                 </div>
                                 <div>
 
             <span class="item-product">
                                <img class="svg invisible"
-                         src="../modules/blockreassurance/img/ic_swap_horiz_black_36dp_1x.png"> &nbsp;
+                                    src="../modules/blockreassurance/img/ic_swap_horiz_black_36dp_1x.png"> &nbsp;
             </span>
 
                                     <p class="block-title" style="color:#000000;">Return policy (edit with Customer
@@ -208,17 +210,17 @@
 
     <script>
 
-        $(document).on('click', '.remove-from-cart', function(e) {
+        $(document).on('click', '.remove-from-cart', function (e) {
             e.preventDefault();
 
             $.ajax({
                 type: 'post',
-                url:  $(this).attr('data-url-product'),  // url and slug
+                url: $(this).attr('data-url-product'),  // url and slug
                 data: {
                     'product_id': $(this).attr('data-id-product'), //how id of pro instead quantity
                     '_token': "{{csrf_token()}}",
                 },
-                success: function(data) {
+                success: function (data) {
 
                 }
             });

@@ -21,6 +21,12 @@ return [
     'add new attribute' => 'Add New Attribute',
     'options'           => 'Options',
     'add new option'    => 'Add New Option',
+    'add new role'      => 'Add new role',
+    'roles'             => 'Roles',
+    'admins' => 'Administrators',
+    'add new admin' => 'Add new Admin',
+
+
 
 
 ];
